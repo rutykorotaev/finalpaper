@@ -10,7 +10,14 @@
 #### Workspace setup ####
 library(tidyverse)
 
-#### Simulate data ####
 
+#### Simulate dataset for Russian artist popularity of the first six months of the war ####
+set.seed(123)
+russianartists <- round(runif(n = 6, min = 5, max = 30))
 
+df <- data.frame(Months = 1:6, Russian_Music = russianartists)     
+df |>
+  ggplot(mapping = aes(x = Months, y = Russian_Music)) +
+  geom_line() +
+  geom_point()
 
