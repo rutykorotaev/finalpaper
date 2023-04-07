@@ -7,9 +7,11 @@
 # Pre-requisites: None
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
+library(spotifyr)
+library(usethis)
 
+edit_r_environ()
 #### Download data ####
 
 
