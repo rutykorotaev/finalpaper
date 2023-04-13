@@ -12,19 +12,105 @@ bibliography: references.bib
 
 # Introduction
 
+Amid much of the Western world's efforts to sanction Kremlin-affiliated enterprises and Russian businesses, the movement to limit engagement with Russian popular culture has been an interesting side effect. Music has been an important vector of connection between Russia and Ukraine, as well as the global diaspora of these respective commmunities. Stemming from the Soviet period, where Russian music maintained cultural hegemony across the Soviet space, the development of Ukrainian-language music has been an important mode through which Ukrainians could reclaim their language and heritage {@citeberezutska}.Following Russia's escalated invasion of Ukraine in February 2022, many Ukrainians and Ukrainian allies have rejected any forms of cultural engagement with Russian artists and the Russian language, opting to listen to Ukrainian artists and support those who are advocating for Ukraine's war effort. This research paper looks at data collected through Spotify API to understand how these attitudes are translating into engagement levels and popularity of ten leading Russian and Ukrainian artists, including Alyona Alyona, Boombox, Skryapin, Okean Elzy, Kalush, Eldzhey, Jony, Egor Kreed, Noize MC, and Rauf & Faik. Further, this paper will seek to provide context for each artist that is analyzed, discussing how the personal politics may have any impact on the popularity levels of Russian and Ukrainian artists.
 
-This paper is dividing into several key sections. The Data section {@sec-data}, will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to demonstrate how the popularity of each Russian and Ukrainian performer has evolved over time. Next, the Results section {@sec-results} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {@sec-discussion} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The first point {@sec-first-point} describes how____, while the second point {@sec-second-point} explains. Finally, the third point {@sec-third-point} stipulates that ____. The project findings and limitations can be found in the last section {@sec-limitations}, which will discuss the various issues with the dataset and its findings, as well as potential changes that could be made for future projects. 
+This paper is divided into several key sections. The Data section {@sec-data}, will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to demonstrate how the popularity of each Russian and Ukrainian performer has evolved over time. Next, the Results section {@sec-results} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {@sec-discussion} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The first point {@sec-first-point} describes how____, while the second point {@sec-second-point} explains. Finally, the third point {@sec-third-point} stipulates that ____. The project findings and limitations can be found in the last section {@sec-limitations}, which will discuss the various issues with the dataset and its findings, as well as potential changes that could be made for future projects. 
 
 # Data {#sec-data}
 
 This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
 
+# Data: Ukrainian Artist Popularity
+
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig-gender
-#| fig-cap: "Number of Refugees in Toronto's Homeless Shelters by Gender"
+#| label: fig-alyona
+#| fig-cap: "Popularity of Ukrainian Artist Alyona Alyona Between February 2022 and October 2022"
+
+
 ```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-boombox
+#| fig-cap: "Popularity of Ukrainian Artist Boombox Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-skryabin
+#| fig-cap: "Popularity of Ukrainian Artist Skryabin Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-kalush
+#| fig-cap: "Popularity of Ukrainian Artist KALUSH Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-okean
+#| fig-cap: "Popularity of Ukrainian Artist Okean Elzy Between February 2022 and October 2022"
+```
+
+# Data: Russian Artist Popularity
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-eldzhey
+#| fig-cap: "Popularity of Russian Artist Eldzhey Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-jony
+#| fig-cap: "Popularity of Russian Artist JONY Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-kreed
+#| fig-cap: "Popularity of Ukrainian Artist Egor Kreed Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-noize
+#| fig-cap: "Popularity of Russian Artist Noize MC Between February 2022 and October 2022"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-raufaik
+#| fig-cap: "Popularity of Russian Artist Rauf & Faik Between February 2022 and October 2022"
+```
+
+# Data: Russian and Ukrainian Artists Summary
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-RU-sum
+#| fig-cap: "Popularity of Russian Artists Since the Start of the Russian Invasion of Ukraine"
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-UA-sum
+#| fig-cap: "Popularity of Ukrainian Artists Since the Start of the Russian Invasion of Ukraine"
+```
+
 
 # Model {#sec-model}
 
@@ -45,9 +131,7 @@ $$ {#eq-bayes}
 
 ## Project Limitations and Next Steps {#sec-limitations}
 
-
 \newpage
-
 
 # References
 
