@@ -17,7 +17,7 @@ This paper is dividing into several key sections. The Data section {@sec-data}, 
 
 # Data {#sec-data}
 
-This paper uses data collected using the Spotify API [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
+This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
 
 ```{r}
 #| echo: false
@@ -25,7 +25,6 @@ This paper uses data collected using the Spotify API [@citespotifyr], and visual
 #| label: fig-gender
 #| fig-cap: "Number of Refugees in Toronto's Homeless Shelters by Gender"
 ```
-
 
 # Model {#sec-model}
 
