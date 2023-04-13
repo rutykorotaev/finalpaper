@@ -44,7 +44,7 @@ skryabin_info <- get_artist("5RqIkHQnXRZlm1ozfSS1IO", authorization = my_app)
 boombox_info <- get_artist("2c3PFZtun8HemDbDfRPV6G", authorization = my_app)
 alyona_info <- get_artist("2ic3GGGmkixOZP4qnakSA8", authorization = my_app)
 
-#### Save data ####
+#### Save data (two files for each artist because there are two datasets) ####
 
 write_csv(raufandfaik_audio, "inputs/data/raufandfaikaudio.csv")
 write_csv(raufandfaik_info, "inputs/data/raufandfaikinfo.csv")
