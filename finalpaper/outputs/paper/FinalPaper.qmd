@@ -10,59 +10,42 @@ number-sections: true
 bibliography: references.bib
 ---
 
-```{r}
-#| include: false
-#| warning: false
-#| message: false
-
-library(tidyverse)
-
-```
-
-
 # Introduction
 
-You can and should cross-reference sections and sub-sections. For instance, @sec-data and @sec-first-point. 
 
+This paper is dividing into several key sections. The Data section {@sec-data}, will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to demonstrate how the popularity of each Russian and Ukrainian performer has evolved over time. Next, the Results section {@sec-results} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {@sec-discussion} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The first point {@sec-first-point} describes how____, while the second point {@sec-second-point} explains. Finally, the third point {@sec-third-point} stipulates that ____. The project findings and limitations can be found in the last section {@sec-limitations}, which will discuss the various issues with the dataset and its findings, as well as potential changes that could be made for future projects. 
 
 # Data {#sec-data}
 
 This paper uses data collected using the Spotify API [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
 
 ```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
 #| echo: false
-
+#| message: false
+#| label: fig-gender
+#| fig-cap: "Number of Refugees in Toronto's Homeless Shelters by Gender"
 ```
 
 
-# Model
+# Model {#sec-model}
 
 $$
 Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}
 $$ {#eq-bayes}
 
 
-# Results
+# Results {#sec-results}
 
-
-# Discussion Introduction
-
+# Discussion {#sec-discussion}
 
 ## First Finding:  {#sec-first-point}
 
-## Second Finding: 
+## Second Finding: {#sec-second-point}
 
-## Third Finding: 
+## Third Finding: {#sec-third-point}
 
-## Project Limitations and Next Steps
+## Project Limitations and Next Steps {#sec-limitations}
 
-\newpage
-
-\appendix
-
-# Appendix {-}
 
 \newpage
 
