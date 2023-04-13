@@ -46,9 +46,32 @@ alyona_info <- get_artist("2ic3GGGmkixOZP4qnakSA8", authorization = my_app)
 
 #### Save data ####
 
-saveRDS(taylor_swift, "taylor_swift.rds")
+write_csv(raufandfaik_audio, "inputs/data/raufandfaikaudio.csv")
+write_csv(raufandfaik_info, "inputs/data/raufandfaikinfo.csv")
 
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
+write_csv(noizemc_info, "inputs/data/noizemcinfo.csv")
+write_csv(noizemc_audio, "inputs/data/noizemcaudio.csv")
 
-         
+write_csv(egorkreed_info, "inputs/data/egorkreedinfo.csv")
+write_csv(egorkreed_audio, "inputs/data/egorkreedaudio.csv")
+
+write_csv(jony_info, "inputs/data/jonyinfo.csv")
+write_csv(jony_audio, "inputs/data/jonyaudio.csv")         
+
+write_csv(eldzhey_info, "inputs/data/eldzheyinfo.csv")
+write_csv(eldzhey_audio, "inputs/data/eldzheyaudio.csv")
+
+write_csv(okeanelzy_info, "inputs/data/okeanelzyinfo.csv")
+write_csv(okeanelzy_audio, "inputs/data/okeanelzyaudio.csv")
+
+write_csv(kalush_info, "inputs/data/kalushinfo.csv")
+write_csv(kalush_audio, "inputs/data/kalushaudio.csv")
+
+write_csv(skryabin_info, "inputs/data/skryabininfo.csv")
+write_csv(skryabin_audio, "inputs/data/skryabinaudio.csv")
+
+write_csv(boombox_info, "inputs/data/boomboxinfo.csv")
+write_csv(boombox_audio, "inputs/data/boomboxaudio.csv") 
+
+write_csv(alyona_info, "inputs/data/alyonainfo.csv")
+write_csv(alyona_audio, "inputs/data/alyonaaudio.csv")
