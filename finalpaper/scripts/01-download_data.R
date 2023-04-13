@@ -10,8 +10,10 @@
 library(tidyverse)
 library(spotifyr)
 library(usethis)
+library(spotifyr)
 
 edit_r_environ()
+
 #### Download data ####
 
 
