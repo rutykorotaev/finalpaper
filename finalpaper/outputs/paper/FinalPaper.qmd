@@ -3,7 +3,7 @@ title: "Spotify's Role in the Russo-Ukrainian Music World"
 subtitle: "An Analysis of Russian and Ukrainian music popularity on Spotify following the 2022 Russian invasion of Ukraine"
 author: "Ruty Korotaev"
 thanks: "Code and data are available at: https://github.com/rutykorotaev/finalpaper"
-date: "17 April 2023"
+date: "19 April 2023"
 abstract: "Following Russia's escalated invasion of Ukraine in February 2022, countries across the West and around the world have sought to end business dealings with Russian companies and boycott pro-Russian public figures, while making efforts to increase support for Ukraine. This widespread effort has gone from the highest levesl of business and government, to individuals opting to stop purchasing Russian goods and not engaging with Russian popular culture, including musicians. This report uses data collected from Spotify APIs to understand how  the popularity of 10 top Russian and Ukrainian musicians has been affected by the ongoing violence. Among the key findings is that ____."
 format: pdf
 number-sections: true

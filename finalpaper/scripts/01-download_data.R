@@ -1,7 +1,7 @@
 #### Preamble ####
 # Purpose: Downloads and saves the data from Spotify API
 # Author: Ruty Korotaev
-# Date: 17 April 2023
+# Date: 19 April 2023
 # Contact: ruty.korotaiev@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: None
