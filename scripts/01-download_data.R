@@ -10,11 +10,8 @@
 library(tidyverse)
 library(spotifyr)
 library(usethis)
-edit_r_environ()
 
 #### Spotify API Credentials ####
-Sys.setenv(SPOTIFY_CLIENT_ID = "ba5b6ccdd3f046249ccd418246b3f1aa")
-Sys.setenv(SPOTIFY_CLIENT_SECRET = "6d20e6a0f53a451399380db65df7ab83")
 my_app <- get_spotify_access_token()
 
 #### Download audio feature data ####
@@ -45,13 +42,13 @@ alyona_info <- get_artist("2ic3GGGmkixOZP4qnakSA8", authorization = my_app)
 
 #### Save data  ####
 
-write_csv(raufandfaik_audio, "finalpaper/inputs/data/raufandfaikaudio.csv")
-write_csv(noizemc_audio, "finalpaper/inputs/data/noizemcaudio.csv")
-write_csv(egorkreed_audio, "finalpaper/inputs/data/egorkreedaudio.csv")
-write_csv(jony_audio, "finalpaper/inputs/data/jonyaudio.csv")         
-write_csv(eldzhey_audio, "finalpaper/inputs/data/eldzheyaudio.csv")
-write_csv(okeanelzy_audio, "finalpaper/inputs/data/okeanelzyaudio.csv")
-write_csv(kalush_audio, "finalpaper/inputs/data/kalushaudio.csv")
-write_csv(skryabin_audio, "finalpaper/inputs/data/skryabinaudio.csv")
-write_csv(boombox_audio, "finalpaper/inputs/data/boomboxaudio.csv") 
-write_csv(alyona_audio, "finalpaper/inputs/data/alyonaaudio.csv")
+write_csv(raufandfaik_audio, "inputs/data/raufandfaikaudio.csv")
+write_csv(noizemc_audio, "inputs/data/noizemcaudio.csv")
+write_csv(egorkreed_audio, "inputs/data/egorkreedaudio.csv")
+write_csv(jony_audio, "inputs/data/jonyaudio.csv")         
+write_csv(eldzhey_audio, "inputs/data/eldzheyaudio.csv")
+write_csv(okeanelzy_audio, "inputs/data/okeanelzyaudio.csv")
+write_csv(kalush_audio, "inputs/data/kalushaudio.csv")
+write_csv(skryabin_audio, "inputs/data/skryabinaudio.csv")
+write_csv(boombox_audio, "inputs/data/boomboxaudio.csv") 
+write_csv(alyona_audio, "inputs/data/alyonaaudio.csv")
