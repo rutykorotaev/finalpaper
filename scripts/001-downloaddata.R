@@ -11,9 +11,6 @@ library(tidyverse)
 library(spotifyr)
 library(usethis)
 
-#### Spotify API Credentials ####
-my_app <- get_spotify_access_token()
-
 #### Download audio feature data ####
 raufandfaik_audio <- get_artist_audio_features("Rauf & Faik")
 noizemc_audio <- get_artist_audio_features("Noize MC")
