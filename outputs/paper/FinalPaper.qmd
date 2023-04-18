@@ -3,7 +3,8 @@ title: "Spotify's Role in the Russo-Ukrainian Music World"
 subtitle: "An Analysis of Russian and Ukrainian music popularity on Spotify following the 2022 Russian invasion of Ukraine"
 author: "Ruty Korotaev"
 thanks: "Code and data are available at: https://github.com/rutykorotaev/finalpaper"
-date: "19 April 2023"
+date: "`r Sys.time()`"
+date-format: "D MMMM YYYY"
 abstract: "Following Russia's escalated invasion of Ukraine in February 2022, countries across the West and around the world have sought to end business dealings with Russian companies and boycott pro-Russian public figures, while making efforts to increase support for Ukraine. This widespread effort has gone from the highest levesl of business and government, to individuals opting to stop purchasing Russian goods and not engaging with Russian popular culture, including musicians. This report uses data collected from Spotify APIs to understand how  the popularity of 10 top Russian and Ukrainian musicians has been affected by the ongoing violence. Among the key findings is that ____."
 format: pdf
 number-sections: true
@@ -20,7 +21,7 @@ This paper is divided into several key sections. The Data section {@sec-data}, w
 
 This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
 
-# Data: Ukrainian Artist Popularity
+## Ukrainian Artist Popularity
 
 ```{r}
 #| echo: false
@@ -59,7 +60,7 @@ This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr],
 #| fig-cap: "Popularity of Ukrainian Artist Okean Elzy Between February 2022 and October 2022"
 ```
 
-# Data: Russian Artist Popularity
+## Russian Artist Popularity
 
 ```{r}
 #| echo: false
@@ -96,7 +97,8 @@ This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr],
 #| fig-cap: "Popularity of Russian Artist Rauf & Faik Between February 2022 and October 2022"
 ```
 
-# Data: Russian and Ukrainian Artists Summary
+## Russian and Ukrainian Artists Summary
+
 ```{r}
 #| echo: false
 #| message: false
