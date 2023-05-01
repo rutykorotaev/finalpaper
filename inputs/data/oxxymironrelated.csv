@@ -1,0 +1,21 @@
+genres,href,id,images,name,popularity,type,uri,external_urls.spotify,followers.href,followers.total
+,https://api.spotify.com/v1/artists/2n6CVwo43YvjiTgcPxYWrf,2n6CVwo43YvjiTgcPxYWrf,,ATL,51,artist,spotify:artist:2n6CVwo43YvjiTgcPxYWrf,https://open.spotify.com/artist/2n6CVwo43YvjiTgcPxYWrf,NA,371379
+,https://api.spotify.com/v1/artists/2nAUHbKI7TZShUwFpk6G08,2nAUHbKI7TZShUwFpk6G08,,Husky,49,artist,spotify:artist:2nAUHbKI7TZShUwFpk6G08,https://open.spotify.com/artist/2nAUHbKI7TZShUwFpk6G08,NA,275624
+,https://api.spotify.com/v1/artists/7HeYTVt0Fg6lYEpmoeP67s,7HeYTVt0Fg6lYEpmoeP67s,,Thomas Mraz,43,artist,spotify:artist:7HeYTVt0Fg6lYEpmoeP67s,https://open.spotify.com/artist/7HeYTVt0Fg6lYEpmoeP67s,NA,167525
+,https://api.spotify.com/v1/artists/4h8pGxEIOi7j4me1yhYxlD,4h8pGxEIOi7j4me1yhYxlD,,LSP,57,artist,spotify:artist:4h8pGxEIOi7j4me1yhYxlD,https://open.spotify.com/artist/4h8pGxEIOi7j4me1yhYxlD,NA,823237
+,https://api.spotify.com/v1/artists/16ZNqMkDZrzd8fTXeN2kUH,16ZNqMkDZrzd8fTXeN2kUH,,Mnogoznaal,50,artist,spotify:artist:16ZNqMkDZrzd8fTXeN2kUH,https://open.spotify.com/artist/16ZNqMkDZrzd8fTXeN2kUH,NA,244327
+,https://api.spotify.com/v1/artists/0ksNNF08VvPbHDXN06mrYa,0ksNNF08VvPbHDXN06mrYa,,Krovostok,50,artist,spotify:artist:0ksNNF08VvPbHDXN06mrYa,https://open.spotify.com/artist/0ksNNF08VvPbHDXN06mrYa,NA,333956
+,https://api.spotify.com/v1/artists/3OB2b7f1bshKrPO0qlr5wq,3OB2b7f1bshKrPO0qlr5wq,,43ai,30,artist,spotify:artist:3OB2b7f1bshKrPO0qlr5wq,https://open.spotify.com/artist/3OB2b7f1bshKrPO0qlr5wq,NA,5910
+,https://api.spotify.com/v1/artists/5G53eR8mz7YH7Khmk5dz1Y,5G53eR8mz7YH7Khmk5dz1Y,,Luperkal,29,artist,spotify:artist:5G53eR8mz7YH7Khmk5dz1Y,https://open.spotify.com/artist/5G53eR8mz7YH7Khmk5dz1Y,NA,31398
+,https://api.spotify.com/v1/artists/3Vfd5HJnhjnvdyuQYHtYa2,3Vfd5HJnhjnvdyuQYHtYa2,,Markul,56,artist,spotify:artist:3Vfd5HJnhjnvdyuQYHtYa2,https://open.spotify.com/artist/3Vfd5HJnhjnvdyuQYHtYa2,NA,340486
+,https://api.spotify.com/v1/artists/3vvLuXEEf7sl3izJcw0GIn,3vvLuXEEf7sl3izJcw0GIn,,Skryptonite,64,artist,spotify:artist:3vvLuXEEf7sl3izJcw0GIn,https://open.spotify.com/artist/3vvLuXEEf7sl3izJcw0GIn,NA,1896080
+,https://api.spotify.com/v1/artists/3hBWcai5p0tR0LsSs5wCQ8,3hBWcai5p0tR0LsSs5wCQ8,,Proyekt Uvechye,24,artist,spotify:artist:3hBWcai5p0tR0LsSs5wCQ8,https://open.spotify.com/artist/3hBWcai5p0tR0LsSs5wCQ8,NA,19438
+,https://api.spotify.com/v1/artists/3YB9ZmKFFgzABIXQUFj4ao,3YB9ZmKFFgzABIXQUFj4ao,,Garry Topor,36,artist,spotify:artist:3YB9ZmKFFgzABIXQUFj4ao,https://open.spotify.com/artist/3YB9ZmKFFgzABIXQUFj4ao,NA,41543
+,https://api.spotify.com/v1/artists/5meD8C7oGK5yUEY2T7ZZ7W,5meD8C7oGK5yUEY2T7ZZ7W,,Max Korzh,60,artist,spotify:artist:5meD8C7oGK5yUEY2T7ZZ7W,https://open.spotify.com/artist/5meD8C7oGK5yUEY2T7ZZ7W,NA,1709149
+,https://api.spotify.com/v1/artists/4YnKu09qC1HfJiiV1jBjtE,4YnKu09qC1HfJiiV1jBjtE,,Tony Raut,44,artist,spotify:artist:4YnKu09qC1HfJiiV1jBjtE,https://open.spotify.com/artist/4YnKu09qC1HfJiiV1jBjtE,NA,71848
+,https://api.spotify.com/v1/artists/3IwaLzOzILWyMzjXFWiDbW,3IwaLzOzILWyMzjXFWiDbW,,JEEMBO,48,artist,spotify:artist:3IwaLzOzILWyMzjXFWiDbW,https://open.spotify.com/artist/3IwaLzOzILWyMzjXFWiDbW,NA,176530
+,https://api.spotify.com/v1/artists/1z14BkmVmnaAEFLUe0VeRc,1z14BkmVmnaAEFLUe0VeRc,,Bumble Beezy,34,artist,spotify:artist:1z14BkmVmnaAEFLUe0VeRc,https://open.spotify.com/artist/1z14BkmVmnaAEFLUe0VeRc,NA,89715
+,https://api.spotify.com/v1/artists/2e7yDxnK4osy7nKhnqrOFM,2e7yDxnK4osy7nKhnqrOFM,,Anacondaz,47,artist,spotify:artist:2e7yDxnK4osy7nKhnqrOFM,https://open.spotify.com/artist/2e7yDxnK4osy7nKhnqrOFM,NA,133347
+,https://api.spotify.com/v1/artists/1hwKCeSXpLrh4OQND6iQHw,1hwKCeSXpLrh4OQND6iQHw,,OBLADAET,54,artist,spotify:artist:1hwKCeSXpLrh4OQND6iQHw,https://open.spotify.com/artist/1hwKCeSXpLrh4OQND6iQHw,NA,344923
+,https://api.spotify.com/v1/artists/4DCHl7YS8J9pe2THEUvarN,4DCHl7YS8J9pe2THEUvarN,,Truwer,50,artist,spotify:artist:4DCHl7YS8J9pe2THEUvarN,https://open.spotify.com/artist/4DCHl7YS8J9pe2THEUvarN,NA,209209
+,https://api.spotify.com/v1/artists/69v4ZOOomf1TNp59YYB1j7,69v4ZOOomf1TNp59YYB1j7,,Noize MC,53,artist,spotify:artist:69v4ZOOomf1TNp59YYB1j7,https://open.spotify.com/artist/69v4ZOOomf1TNp59YYB1j7,NA,348252

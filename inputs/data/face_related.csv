@@ -1,0 +1,21 @@
+genres,href,id,images,name,popularity,type,uri,external_urls.spotify,followers.href,followers.total
+,https://api.spotify.com/v1/artists/7gmUEqRjXK144s5jQMVc8c,7gmUEqRjXK144s5jQMVc8c,,Yanix,54,artist,spotify:artist:7gmUEqRjXK144s5jQMVc8c,https://open.spotify.com/artist/7gmUEqRjXK144s5jQMVc8c,NA,355227
+,https://api.spotify.com/v1/artists/5NipqMGsY4AUeb7kGT8aVz,5NipqMGsY4AUeb7kGT8aVz,,kizaru,62,artist,spotify:artist:5NipqMGsY4AUeb7kGT8aVz,https://open.spotify.com/artist/5NipqMGsY4AUeb7kGT8aVz,NA,1134701
+,https://api.spotify.com/v1/artists/4h8pGxEIOi7j4me1yhYxlD,4h8pGxEIOi7j4me1yhYxlD,,LSP,57,artist,spotify:artist:4h8pGxEIOi7j4me1yhYxlD,https://open.spotify.com/artist/4h8pGxEIOi7j4me1yhYxlD,NA,823237
+,https://api.spotify.com/v1/artists/1hwKCeSXpLrh4OQND6iQHw,1hwKCeSXpLrh4OQND6iQHw,,OBLADAET,54,artist,spotify:artist:1hwKCeSXpLrh4OQND6iQHw,https://open.spotify.com/artist/1hwKCeSXpLrh4OQND6iQHw,NA,344923
+,https://api.spotify.com/v1/artists/7HeYTVt0Fg6lYEpmoeP67s,7HeYTVt0Fg6lYEpmoeP67s,,Thomas Mraz,43,artist,spotify:artist:7HeYTVt0Fg6lYEpmoeP67s,https://open.spotify.com/artist/7HeYTVt0Fg6lYEpmoeP67s,NA,167525
+,https://api.spotify.com/v1/artists/3vvLuXEEf7sl3izJcw0GIn,3vvLuXEEf7sl3izJcw0GIn,,Skryptonite,64,artist,spotify:artist:3vvLuXEEf7sl3izJcw0GIn,https://open.spotify.com/artist/3vvLuXEEf7sl3izJcw0GIn,NA,1896080
+,https://api.spotify.com/v1/artists/5NMwoStnfHT4LdETlJSwDT,5NMwoStnfHT4LdETlJSwDT,,Big Baby Tape,61,artist,spotify:artist:5NMwoStnfHT4LdETlJSwDT,https://open.spotify.com/artist/5NMwoStnfHT4LdETlJSwDT,NA,1057594
+,https://api.spotify.com/v1/artists/1F8usyx5PbYGWxf0bwdXwA,1F8usyx5PbYGWxf0bwdXwA,,PHARAOH,60,artist,spotify:artist:1F8usyx5PbYGWxf0bwdXwA,https://open.spotify.com/artist/1F8usyx5PbYGWxf0bwdXwA,NA,732978
+,https://api.spotify.com/v1/artists/01lZudgXsojt5TBHuygB8r,01lZudgXsojt5TBHuygB8r,,T-Fest,53,artist,spotify:artist:01lZudgXsojt5TBHuygB8r,https://open.spotify.com/artist/01lZudgXsojt5TBHuygB8r,NA,644709
+,https://api.spotify.com/v1/artists/5meD8C7oGK5yUEY2T7ZZ7W,5meD8C7oGK5yUEY2T7ZZ7W,,Max Korzh,60,artist,spotify:artist:5meD8C7oGK5yUEY2T7ZZ7W,https://open.spotify.com/artist/5meD8C7oGK5yUEY2T7ZZ7W,NA,1709149
+,https://api.spotify.com/v1/artists/0j6G5eiOcrSdlyqaYwtxwS,0j6G5eiOcrSdlyqaYwtxwS,,LIZER,51,artist,spotify:artist:0j6G5eiOcrSdlyqaYwtxwS,https://open.spotify.com/artist/0j6G5eiOcrSdlyqaYwtxwS,NA,387540
+,https://api.spotify.com/v1/artists/4QwXKmGPo7GsU3N8LJykki,4QwXKmGPo7GsU3N8LJykki,,Pika,46,artist,spotify:artist:4QwXKmGPo7GsU3N8LJykki,https://open.spotify.com/artist/4QwXKmGPo7GsU3N8LJykki,NA,44799
+,https://api.spotify.com/v1/artists/3Vfd5HJnhjnvdyuQYHtYa2,3Vfd5HJnhjnvdyuQYHtYa2,,Markul,56,artist,spotify:artist:3Vfd5HJnhjnvdyuQYHtYa2,https://open.spotify.com/artist/3Vfd5HJnhjnvdyuQYHtYa2,NA,340486
+,https://api.spotify.com/v1/artists/3IwaLzOzILWyMzjXFWiDbW,3IwaLzOzILWyMzjXFWiDbW,,JEEMBO,48,artist,spotify:artist:3IwaLzOzILWyMzjXFWiDbW,https://open.spotify.com/artist/3IwaLzOzILWyMzjXFWiDbW,NA,176530
+,https://api.spotify.com/v1/artists/3pONzjQKqFrh3zTQBTMeWd,3pONzjQKqFrh3zTQBTMeWd,,THRILL PILL,46,artist,spotify:artist:3pONzjQKqFrh3zTQBTMeWd,https://open.spotify.com/artist/3pONzjQKqFrh3zTQBTMeWd,NA,301715
+,https://api.spotify.com/v1/artists/2n6CVwo43YvjiTgcPxYWrf,2n6CVwo43YvjiTgcPxYWrf,,ATL,51,artist,spotify:artist:2n6CVwo43YvjiTgcPxYWrf,https://open.spotify.com/artist/2n6CVwo43YvjiTgcPxYWrf,NA,371379
+,https://api.spotify.com/v1/artists/7oxIi3tF8bOBxAcSixbojj,7oxIi3tF8bOBxAcSixbojj,,Dzharakhov,45,artist,spotify:artist:7oxIi3tF8bOBxAcSixbojj,https://open.spotify.com/artist/7oxIi3tF8bOBxAcSixbojj,NA,168336
+,https://api.spotify.com/v1/artists/16ZNqMkDZrzd8fTXeN2kUH,16ZNqMkDZrzd8fTXeN2kUH,,Mnogoznaal,50,artist,spotify:artist:16ZNqMkDZrzd8fTXeN2kUH,https://open.spotify.com/artist/16ZNqMkDZrzd8fTXeN2kUH,NA,244327
+,https://api.spotify.com/v1/artists/4WjXh2fvMd6dsn1WaIYdRp,4WjXh2fvMd6dsn1WaIYdRp,,Mosquit,45,artist,spotify:artist:4WjXh2fvMd6dsn1WaIYdRp,https://open.spotify.com/artist/4WjXh2fvMd6dsn1WaIYdRp,NA,30934
+,https://api.spotify.com/v1/artists/0ohUvVskERzK18bvWXFEqi,0ohUvVskERzK18bvWXFEqi,,GONE.Fludd,59,artist,spotify:artist:0ohUvVskERzK18bvWXFEqi,https://open.spotify.com/artist/0ohUvVskERzK18bvWXFEqi,NA,447232

@@ -20,3 +20,6 @@ df |>
   geom_line() +
   geom_point()
 
+#### Lint script
+library(lintr)
+lint("00-simulate_data.R")
