@@ -22,111 +22,131 @@ This paper is divided into several key sections. The Data section {@sec-data}, w
 
 This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
 
-## Ukrainian Artist Popularity
+## Popularity: Pro- vs. Anti-Kremlin Russian Artists on Spotify
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig-alyona
-#| fig-cap: "Popularity of Ukrainian Artist Alyona Alyona Between February 2022 and October 2022"
+#| label: fig-popularity
+#| fig-cap: Popularity of Anti and Pro-Kremlin Russian Artists on Spotify Amid the War in Ukraine
 
+# Load  libraries and read in dataset 
+library(tidyverse)
+library(ggplot2)
+
+clean_info_dataset <- 
+  read_csv(here::here("inputs/data/clean_info_dataset.csv"))
+
+# Create data frame with all the necessary artist names
+artists <- c("oxxxymiron", "noizemc", "face", "icepeak", "maxkorzh", "skriptonite", "basta", "eldzhey")
+
+# Extract data from the popularity column from the clean_info_dataset
+popularity <- clean_info_dataset$popularity
+
+# Create a data frame with the artist names and their popularity and followers.total values
+data <- data.frame(x = artists, y = popularity)
+
+# Plot the data in a line segment, with the pro-Kremlin artists being red and the anti-Kremlin artists being in blue
+ggplot(data, aes(x = artists, y = popularity)) + 
+  geom_segment(aes(x = artists, xend = artists, y = 0, yend = y),
+color = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), "blue", "red"),
+linewidth = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), 0.3, 0.3)) +
+  geom_point(color = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), "blue", "red"), 
+linewidth = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), 2.5, 2.5))
 
 ```
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-boombox
-#| fig-cap: "Popularity of Ukrainian Artist Boombox Between February 2022 and October 2022"
-```
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig-skryabin
-#| fig-cap: "Popularity of Ukrainian Artist Skryabin Between February 2022 and October 2022"
-```
+#| label: fig-pop_followers
+#| fig-cap: Correlation Between Follower Count and Popularity Score
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-kalush
-#| fig-cap: "Popularity of Ukrainian Artist KALUSH Between February 2022 and October 2022"
-```
+library(ggrepel)
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-okean
-#| fig-cap: "Popularity of Ukrainian Artist Okean Elzy Between February 2022 and October 2022"
-```
+# Create data frame of artists 
+artists_pop_followers <- c("oxxxymiron",
+             "noizemc",
+             "face",
+             "icepeak",
+             "maxkorzh",
+             "skriptonite",
+             "basta",
+             "eldzhey")
 
-## Russian Artist Popularity
+# Extract all the popularity data for each artist
+popularity <- c(oxxxymiron_pop,
+                noizemc_pop,
+                face_pop,
+                icepeak_pop,
+                maxkorzh_pop,
+                skriptonite_pop,
+                basta_pop,
+                eldzhey_pop)
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-eldzhey
-#| fig-cap: "Popularity of Russian Artist Eldzhey Between February 2022 and October 2022"
-```
+# Extract all the follower data for each artist
+followers <- c(oxxxymiron_followers,
+               noizemc_followers,
+               face_followers,
+               icepeak_followers,
+               maxkorzh_followers,
+               skriptonite_followers,
+               basta_followers,
+               eldzhey_followers)
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-jony
-#| fig-cap: "Popularity of Russian Artist JONY Between February 2022 and October 2022"
-```
+scatterplot_data <- data.frame(x = popularity, y = followers)
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-kreed
-#| fig-cap: "Popularity of Ukrainian Artist Egor Kreed Between February 2022 and October 2022"
-```
+#Plot graph 
+ggplot(scatterplot_data, aes(x = popularity, y = followers)) +
+geom_point(aes(colour = factor(artists_pop_followers)), size = 1.75)
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-noize
-#| fig-cap: "Popularity of Russian Artist Noize MC Between February 2022 and October 2022"
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-raufaik
-#| fig-cap: "Popularity of Russian Artist Rauf & Faik Between February 2022 and October 2022"
-```
-
-## Russian and Ukrainian Artists Summary
-
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-RU-sum
-#| fig-cap: "Popularity of Russian Artists Since the Start of the Russian Invasion of Ukraine"
-```
-
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-UA-sum
-#| fig-cap: "Popularity of Ukrainian Artists Since the Start of the Russian Invasion of Ukraine"
 ```
 
 
 # Model {#sec-model}
 
-$$
-Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}
-$$ {#eq-bayes}
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-skriptonite_recs
+#| fig-cap: Spotify's Recommended Artists for Skriptonite 
 
+lm(y ~ x, data)
+
+# Create a dataframe
+data <- data.frame(
+  option = c(1:20),  
+# Assign a numeric ID to each option
+  recommended = c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+)
+# There should be 20 options in the recommended variable - replace all the 0's for 1's if they are pro-Russia
+
+# Fit a logistic regression model
+model <- glm(recommended ~ option, data = data, family = binomial())
+
+# Extract the model coefficients
+coefficients <- coef(model)
+
+
+```
+
+
+```{r}
+#| echo: false
+#| message: false
+#| label: fig-face_recs
+#| fig-cap: Spotify's Recommended Artists for FACE 
+
+
+```
 
 # Results {#sec-results}
 
 # Discussion {#sec-discussion}
 
 ## First Finding:  {#sec-first-point}
+The first finding that was 
 
 ## Second Finding: {#sec-second-point}
 

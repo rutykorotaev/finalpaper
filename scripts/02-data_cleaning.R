@@ -1,55 +1,62 @@
 #### Preamble ####
-# Purpose: Cleans the dataset
+# Purpose: Clean the dataset
 # Author: Ruty Korotaev
 # Date: 17 April 2023
 # Contact: ruty.korotaiev@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: None
 
-
-#### Workspace setup ####
+# Workspace setup
 library(tidyverse)
 library(readr)
+library(dplyr)
 
-#### Clean data: Create one dataset with Russian performers, and another with Ukrainian ones ####
+# Combine and clean info datasets to just include follower counts, popularity scores, and artist identifying details
+# Use read_csv function to read in each dataset
+noizemc <- read_csv("inputs/data/noizemcinfo.csv")
+oxxxymiron <- read_csv("inputs/data/oxxxymiron.csv")
+face <- read_csv("inputs/data/face.csv")
+icepeak <- read_csv("inputs/data/icepeak.csv")
+maxkorzh <- read_csv("inputs/data/maxkorzh.csv")
+skriptonite <- read_csv("inputs/data/skriptonite.csv")
+basta <- read_csv("inputs/data/basta.csv")
+eldzhey <- read_csv("inputs/data/eldzhey.csv")
 
-#### Russian performers dataset #####
-raufandfaik_audio <- read_csv("inputs/data/raufandfaikaudio.csv")
-noizemc_audio <- read_csv("inputs/data/noizemcaudio.csv")
-egorkreed_audio <- read_csv("inputs/data/egorkreedaudio.csv")
-jony_audio <- read_csv("inputs/data/jonyaudio.csv")         
-eldzhey_audio <- read_csv("inputs/data/eldzheyaudio.csv")
+# Select necessary columns about followers, popularity, and artist details from each dataset
+noizemc <- select(noizemc, followers.total, name, id, popularity)
+oxxxymiron <- select(oxxxymiron, followers.total, name, id, popularity)
+face <- select(face, followers.total, name, id, popularity)
+icepeak <- select(icepeak, followers.total, name, id, popularity)
+maxkorzh <- select(maxkorzh, followers.total, name, id, popularity)
+skriptonite <- select(skriptonite, followers.total, name, id, popularity)
+basta <- select(basta, followers.total, name, id, popularity)
+eldzhey <- select(eldzhey, followers.total, name, id, popularity)
 
-# Create column to identify artists 
-raufandfaik_audio$artist <- "Rauf & Faik"
-noizemc_audio$artist <- "Noize MC"
-egorkreed_audio$artist <- "Egor Kreed"
-jony_audio$artist <- "Jony"
-eldzhey_audio$artist <- "Eldzhey"
+# Combine into one dataset
+clean_info_dataset <- bind_rows(noizemc, oxxxymiron, face, icepeak, maxkorzh, skriptonite, basta, eldzhey)
 
-# Combine all dataframes into one dataset
-russian_performers <- rbind(raufandfaik_audio, noizemc_audio, egorkreed_audio, jony_audio, eldzhey_audio)
+# Go through each "related" dataset and remove unnecessary columns 
+noizemc_related_clean <- select(noizemc_related, name, id, followers.total, popularity, genres)
+oxxxymiron_related_clean <- select(oxxxymiron_related, name, id, followers.total, popularity, genres)
+face_related_clean <- select(face_related, name, id, followers.total, popularity, genres)
+icepeak_related_clean <- select(icepeak_related, name, id, followers.total, popularity, genres)
+maxkorzh_related_clean <- select(maxkorzh_related, name, id, followers.total, popularity, genres)
+skriptonite_related_clean <- select(skriptonite_related, name, id, followers.total, popularity, genres)
+basta_related_clean <- select(basta_related, name, id, followers.total, popularity, genres)
+eldzhey_related_clean <- select(eldzhey_related, name, id, followers.total, popularity, genres)
 
-#### Ukrainian performers dataset ####
-okeanelzy_audio <- read_csv("inputs/data/okeanelzyaudio.csv")
-kalush_audio <- read_csv("inputs/data/kalushaudio.csv")
-skryabin_audio <- read_csv("inputs/data/skryabinaudio.csv")
-boombox_audio <- read_csv("inputs/data/boomboxaudio.csv") 
-alyona_audio <- read_csv("inputs/data/alyonaaudio.csv")
+# Save cleaned data
+write_csv(clean_info_dataset, "inputs/data/clean_info_dataset.csv")
 
-# Create column to identify artists 
-okeanelzy_audio$artist <- "Okean Elzy"
-kalush_audio$artist <- "Kalush"
-skryabin_audio$artist <- "Skryabin"
-boombox_audio$artist <- "Boombox"
-alyona_audio$artist <- "Alyona Alyona"
+write_csv(oxxxymiron_related_clean, "inputs/data/oxxymironrelated_clean.csv") 
+write_csv(noizemc_related_clean, "inputs/data/noizemc_related_clean.csv")
+write_csv(face_related_clean, "inputs/data/face_related_clean.csv")
+write_csv(icepeak_related_clean, "inputs/data/icepeak_related_clean.csv")
+write_csv(maxkorzh_related_clean, "inputs/data/maxkorzh_related_clean.csv") 
+write_csv(skriptonite_related_clean, "inputs/data/skriptonite_related_clean.csv")
+write_csv(basta_related_clean, "inputs/data/basta_related_clean.csv")
+write_csv(eldzhey_related_clean, "inputs/data/eldzhey_related_clean.csv")
 
-# Combine all dataframes into one dataset
-ukrainian_performers <- rbind(okeanelzy_audio, kalush_audio, skryabin_audio, boombox_audio, alyona_audio)
-
-#### Save cleaned data ####
-
-# change cleaned_data to whatever name you end up with at the end of cleaning
-write_csv(russian_performers, "outputs/russian_performers.csv")
-write_csv(ukrainian_performers, "outputs/ukrainian_performers.csv")
-
+# Lint script
+library(lintr)
+lint("03-data_cleaning.R")

@@ -7,10 +7,10 @@
 # Pre-requisites: None
 
   
-#### Workspace setup ####
+# Workspace setup 
 library(tidyverse)
 
-#### Simulate dataset for Russian artist popularity of the first six months of the war ####
+# Simulate dataset for Russian artist popularity of the first six months of the war 
 set.seed(123)
 russianartists <- round(runif(n = 6, min = 5, max = 30))
 
@@ -20,6 +20,6 @@ df |>
   geom_line() +
   geom_point()
 
-#### Lint script
+# Lint script
 library(lintr)
 lint("00-simulate_data.R")

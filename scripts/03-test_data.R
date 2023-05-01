@@ -12,18 +12,26 @@ library(tidyverse)
 
 #### Test data ####
 
-#Test 1: Use unique function to ensure there are no duplicates in dataset
-russian_performers |> unique()
-ukrainian_performers |> unique()
+#Test 1: Use unique function to ensure there are no duplicates in each dataset
+clean_info_dataset |> unique()
+noizemc_related_clean |> unique()
+oxxxymiron_related_clean |> unique()
+face_related_clean |> unique()
+icepeak_related_clean |> unique()
+maxkorzh_related_clean |> unique()
+skriptonite_related_clean |> unique()
+basta_related_clean |> unique()
+eldzhey_related_clean |> unique()
 
 #Test 2: Use validator and is.numeric function to ensure all values are regarded as numeric
 
+library(dplyr)
 library(validate)
 rules <- validator(
-  is.numeric(artist_name),
-  is.numeric(album_release_year),
-  is.numeric(danceability),
-  is.numeric(energy),
-  is.numeric(key),
-  is.numeric(mode),
+  is.numeric(popularity),
+  is.numeric(followers.total)
 )
+
+# Lint script
+library(lintr)
+lint("03-test_data.R")
