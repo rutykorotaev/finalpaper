@@ -76,6 +76,15 @@ artists_pop_followers <- c("oxxxymiron",
              "eldzhey")
 
 # Extract all the popularity data for each artist
+oxxxymiron_pop <- oxxxymiron$popularity
+noizemc_pop <- noizemc$popularity
+face_pop <- face$popularity
+icepeak_pop <- icepeak$popularity
+maxkorzh_pop <- maxkorzh$popularity
+skriptonite_pop <- skriptonite$popularity
+basta_pop <- basta$popularity
+eldzhey_pop <- eldzhey$popularity
+
 popularity <- c(oxxxymiron_pop,
                 noizemc_pop,
                 face_pop,
@@ -86,6 +95,15 @@ popularity <- c(oxxxymiron_pop,
                 eldzhey_pop)
 
 # Extract all the follower data for each artist
+oxxxymiron_followers <- oxxxymiron$followers.total
+noizemc_followers <- noizemc$followers.total
+face_followers <- face$followers.total
+icepeak_followers <- icepeak$followers.total
+maxkorzh_followers <- maxkorzh$followers.total
+skriptonite_followers <- skriptonite$followers.total
+basta_followers <- basta$followers.total
+eldzhey_followers <- eldzhey$followers.total
+
 followers <- c(oxxxymiron_followers,
                noizemc_followers,
                face_followers,
@@ -118,7 +136,7 @@ lm(y ~ x, data)
 data <- data.frame(
   option = c(1:20),  
 # Assign a numeric ID to each option
-  recommended = c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+  recommended = c(1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1)
 )
 # There should be 20 options in the recommended variable - replace all the 0's for 1's if they are pro-Russia
 
@@ -137,6 +155,21 @@ coefficients <- coef(model)
 #| message: false
 #| label: fig-face_recs
 #| fig-cap: Spotify's Recommended Artists for FACE 
+
+
+# Create a dataframe
+data <- data.frame(
+  option = c(1:20),  
+# Assign a numeric ID to each option
+  recommended = c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
+)
+# There should be 20 options in the recommended variable - replace all the 0's for 1's if they are pro-Russia
+
+# Fit a logistic regression model
+model <- glm(recommended ~ option, data = data, family = binomial())
+
+# Extract the model coefficients
+coefficients <- coef(model)
 
 
 ```
