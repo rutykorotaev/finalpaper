@@ -4,7 +4,7 @@ subtitle: "An Analysis of Russian Artist Popularity Amid the War in Ukraine"
 author: "Ruty Korotaev"
 thanks: "Code and data are available at: https://github.com/rutykorotaev/finalpaper"
 date: "19 April 2023"
-abstract: "Following Russia's escalated invasion of Ukraine in February 2022, countries across the West and around the world have sought to end business dealings with Russian companies and boycott pro-Russian public figures. This widespread effort has gone from the highest levesl of business and government, to individuals opting to stop purchasing Russian goods and not engaging with Russian popular culture, including musicians. This report uses data collected from Spotify APIs to address two main research questions. First, how has the popularity and following of both pro- and anti-Kremlin Russian musicians changed since the onset of the war in Ukraine. And two, how are Spotify's recommendation features impacting engagement with these Russian artists, and is it able to differentiate between the political affiliations of these artists? Among the main findings is______. "
+abstract: "Following Russia's escalated invasion of Ukraine in February 2022, countries across the West and around the world have sought to end business dealings with Russian companies and boycott pro-Russian public figures. This widespread effort has gone from the highest levels of business and government, to individuals opting to stop purchasing Russian goods and not engaging with Russian popular culture, including musicians. This report uses data collected from Spotify APIs to address two main research questions. First, how has the popularity and following of both pro- and anti-Kremlin Russian musicians changed since the onset of the war in Ukraine. And two, how are Spotify's recommendation features impacting engagement with these Russian artists, and is it able to differentiate between the political affiliations of these artists? Among the main findings is that for many Russian-speaking Spotify users, the political affiliations of a given artists do not seem to play a role in their popularity, and there was very little difference in popularity among pro- and anti-Kremlin musicians. Additionally, in considering literature that discusses how social media platforms can lead to users down online rabbit holes of disinformation, conspiracy theories, and radicalization, this paper reviewed whether Spotify's recommendation function played a role in encouraging users to engage with pro-Kremlin musicians. As such, this paper discovered that the vast majority of Spotify's recommendations for both pro- and anti-Kremlin artists was for pro-Kremlin artists, though it was able to differentiate between Russian and Ukrainian artists (some of whom still perform in Russian)."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -12,15 +12,17 @@ bibliography: references.bib
 
 # Introduction
 
-Amid much of the Western world's efforts to sanction Kremlin-affiliated enterprises and Russian businesses, the movement to limit engagement with Russian popular culture has been an interesting side effect of the conflict. Following Russia's escalated invasion of Ukraine in February 2022, many Ukrainians and Ukrainian allies have rejected any forms of cultural engagement with Russian artists and the Russian language, which ranges from boycotting Western businesses still operating in the Russia and has trickled down to the music people listen to. This research paper looks at data collected through Spotify API to understand how the popularity of openly pro- and anti- Kremlin Russian musicians has shifted since the war began, looking at a time period between February and October 2022, taking into account the six months during which there was the most action in terms of sanctioning and banning Russian outlets (and vice versa within Russia and its bans of Western organizations). Among the pro-Kremlin artists are ____, while the anti-Kremlin artists - name of whom have now been exiled out of the country - are ___. The paper will also explore the relationship between an artist's popularity rating and their follower count, to see how it may have shifted and changed over time. 
+Amid much of the Western world's efforts to sanction Kremlin-affiliated enterprises and Russian businesses, the movement to limit engagement with Russian popular culture has been an interesting side effect of the conflict. Following Russia's escalated invasion of Ukraine in February 2022, many Ukrainians and Ukrainian allies have rejected any forms of cultural engagement with Russian artists and the Russian language, which ranges from boycotting Western businesses still operating in the Russia and has trickled down to the music people listen to. This research paper looks at data collected through Spotify API to understand how the popularity of openly pro- and anti- Kremlin Russian musicians has shifted since the war began, looking at a time period between February and October 2022, taking into account the six months during which there was the most action in terms of sanctioning and banning Russian outlets (and vice versa within Russia and its bans of Western organizations). Among the pro-Kremlin artists are Basta, Eldzhey, Max Korzh, and Skryptonite, while the anti-Kremlin artists (many of whom have been banned from Russia) are FACE, IC3PEAK, Noize MC, and Oxxxymiron The paper will also explore the relationship between an artist's popularity rating and their follower count, to see how it may have shifted and changed over time. 
 
 Further, the second part of this paper will take from literature around other social media outlets which analyzes how recommendations can lead users down certain rabbit holes. While these can sometimes be harmless, the worst cases can lead people down pathes to radicalization, entrenching users into information environments that spread mis- and disinformation, conspiracy theories, and far-right rhethoric. This paper analyzes how Spotify's recommendation features encourages or discourages users to engage with Russian users, and whether it is able to distinguish between the political affiliations of different artists. 
 
-This paper is divided into several key sections. The Data section {@sec-data}, will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to demonstrate how the popularity of each performer has evolved over time. Next, the Results section {@sec-results} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {@sec-discussion} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The first point {@sec-first-point} describes how____, while the second point {@sec-second-point} explains. Finally, the third point {@sec-third-point} stipulates that ____. The project findings and limitations can be found in the last section {@sec-limitations}, which will discuss the various issues with the dataset and its findings, as well as potential changes that could be made for future projects. 
+This paper is divided into several key sections. The Data section {@sec-data} will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to show the various ways popularity and total follower counts can offer insights into larger trends among Russian-speaking audiences. There will also be several visualizations looking at the `get_related_artists` function and how it can offer insights into Spotify's API algorithm. Next, the Results section {@sec-results} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {@sec-discussion} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The project findings and limitations can be found in the last section {@sec-limitations}, which will discuss the various issues with the dataset and the Spotify API apparatus, as well as potential improvements for future projects and a few thoughts on how my personal biases impacted the results. 
 
 # Data {#sec-data}
 
-This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], and "knitr" [@citeknitr].
+This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from four top pro-Kremlin Russian artists and four top anti-Kremlin Russian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, total followers, artist name, which were extracted using the `get_artists` function. In addition, I used data from the `get_related_artists` function, that shows the top 20 artists that come up in Spotify's recommendations when searching any given musician. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], and "knitr" [@citeknitr].
+
+To start, {@fig-popularity} hones in on the popularity variable and compares the popularity between the pro- (in red) and anti-Kremlin (in blue) artists 
 
 ## Popularity: Pro- vs. Anti-Kremlin Russian Artists on Spotify
 
@@ -53,12 +55,13 @@ ggplot(data, aes(x = x, y = popularity)) +
 color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), "blue", "red"),
 linewidth = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), 0.3, 0.3)) +
   geom_point(color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), "blue", "red"), 
-linewidth = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "Noize MC", "IC3PEAK"), 2.5, 2.5))
+linewidth = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), 2.5, 2.5))
 
 ```
 
-The following chart demontrates the correlation between follower count and popularity rating .
+\newpage
 
+Next, {@fig-pop_followers} looks at whether there is a correlation between the artists' follower counts and their popularity score. 
 
 ```{r}
 #| echo: false
@@ -162,7 +165,13 @@ geom_point(aes(colour = factor(artists_pop_followers)), size = 1.75)
 
 ```
 
+Next, the following few visualizations will focus on the second part of this paper's analysis, which focuses on the recommendations function of Spotify and the role it may play in encouraging users to engage with more pro-Russian artists that are available on the platform. In, we look at the recommendations for  Eldzhey, who is one of Russia's most prominent rappers and has been openly supportive of the war in Ukraine. He has been officially banned from entering Ukraine, following a concert he gave in 2018 in the Russian-occupied region of Crimea. 
 
+```{r}
+
+```
+
+Below is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artists) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist. A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
 
 # Model {#sec-model}
 
@@ -203,18 +212,11 @@ stargazer(model, type = "html", out = "results.htm")
 ```
 
 
-```{r}
-#| echo: false
-#| message: false
-#| label: fig-face_recs
-#| fig-cap: Spotify's Recommended Artists for FACE 
-
-```
-
 # Results {#sec-results}
 
-There are several key results that can be gleaned from the above visualizations. First, as {@fig-popularity} shows, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity among Spotify users. We can see that Skryptonite, the Russian rapper is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who is 
+There are several key results that can be gleaned from the above visualizations. First, as {@fig_popularity} shows, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity among Spotify users. We can see that Skryptonite, the Russian rapper is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who has been incredibly vocal about being against the war in Ukraine, and has since been banned within Russia and forced to leave the country. 
 
+Next, {@fig-pop_followers} looks at the correlation between total follower counts and the popularity number assigned by Spotify. What can be seen in this graph is that, as with {@fig_popularity}, staunchly pro-Putin rapper Skryptonite has the most amount of followers and the highest popularity score. Noize MC, who is ardently anti-Putin, has both the lowest popularity rating and lowest amount of followers. Interestingly, Oxxxymiron and Eldzhey, who are on very opposite ends of the political spectrum, ranked very close in both popularity and follower count. 
 
 # Discussion {#sec-discussion}
 
