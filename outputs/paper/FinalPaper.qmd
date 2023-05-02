@@ -1,6 +1,6 @@
 ---
 title: "Spotify and the Russo-Ukrainian War"
-subtitle: "Many openly pro- and anti-Kremlin Russian artists are on Spotify. How has their popularity changed since the start of the war in Ukraine, and "
+subtitle: "An Analysis of Russian Artist Popularity Amid the War in Ukraine"
 author: "Ruty Korotaev"
 thanks: "Code and data are available at: https://github.com/rutykorotaev/finalpaper"
 date: "19 April 2023"
@@ -20,7 +20,7 @@ This paper is divided into several key sections. The Data section {@sec-data}, w
 
 # Data {#sec-data}
 
-This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], "kableExtra" [@citekableExtra], and "knitr" [@citeknitr].
+This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr], and visualizes data from five top Russian artists and 5 top Ukrainian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, year, artist name, and track number. This paper uses R [@citeR] to analyze the dataset, and several R packages were included in the project, including "tidyverse" [@citetidyverse], "dplyr" [@citedplyr], and "knitr" [@citeknitr].
 
 ## Popularity: Pro- vs. Anti-Kremlin Russian Artists on Spotify
 
@@ -33,12 +33,13 @@ This paper uses data collected using the Spotify API "spotifyr" [@citespotifyr],
 # Load  libraries and read in dataset 
 library(tidyverse)
 library(ggplot2)
+library(readr)
 
 clean_info_dataset <- 
   read_csv(here::here("inputs/data/clean_info_dataset.csv"))
 
 # Create data frame with all the necessary artist names
-artists <- c("oxxxymiron", "noizemc", "face", "icepeak", "maxkorzh", "skriptonite", "basta", "eldzhey")
+artists <- c("Oxxxymiron","Noize MC","FACE","IC3PEAK","Max Korzh","Skryptonite","Basta","Eldzhey")
 
 # Extract data from the popularity column from the clean_info_dataset
 popularity <- clean_info_dataset$popularity
@@ -47,14 +48,16 @@ popularity <- clean_info_dataset$popularity
 data <- data.frame(x = artists, y = popularity)
 
 # Plot the data in a line segment, with the pro-Kremlin artists being red and the anti-Kremlin artists being in blue
-ggplot(data, aes(x = artists, y = popularity)) + 
-  geom_segment(aes(x = artists, xend = artists, y = 0, yend = y),
-color = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), "blue", "red"),
-linewidth = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), 0.3, 0.3)) +
-  geom_point(color = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), "blue", "red"), 
-linewidth = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), 2.5, 2.5))
+ggplot(data, aes(x = x, y = popularity)) + 
+  geom_segment(aes(x = x, xend = artists, y = 0, yend = y),
+color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), "blue", "red"),
+linewidth = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), 0.3, 0.3)) +
+  geom_point(color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), "blue", "red"), 
+linewidth = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "Noize MC", "IC3PEAK"), 2.5, 2.5))
 
 ```
+
+The following chart demontrates the correlation between follower count and popularity rating .
 
 
 ```{r}
@@ -64,28 +67,49 @@ linewidth = ifelse(data$x %in% c("oxxxymiron", "noizemc", "face", "icepeak"), 2.
 #| fig-cap: Correlation Between Follower Count and Popularity Score
 
 library(ggrepel)
+library(readr)
+library(dplyr)
+
+clean_info_dataset <- 
+  read_csv(here::here("inputs/data/clean_info_dataset.csv"))
 
 # Create data frame of artists 
-artists_pop_followers <- c("oxxxymiron",
-             "noizemc",
-             "face",
-             "icepeak",
-             "maxkorzh",
-             "skriptonite",
-             "basta",
-             "eldzhey")
+artists_pop_followers <- c("Oxxxymiron",
+             "Noize MC",
+             "FACE",
+             "Ice Peak",
+             "Max Korzh",
+             "Skriptonite",
+             "Basta",
+             "Eldzhey")
 
 # Extract all the popularity data for each artist
-oxxxymiron_pop <- oxxxymiron$popularity
-noizemc_pop <- noizemc$popularity
-face_pop <- face$popularity
-icepeak_pop <- icepeak$popularity
-maxkorzh_pop <- maxkorzh$popularity
-skriptonite_pop <- skriptonite$popularity
-basta_pop <- basta$popularity
-eldzhey_pop <- eldzhey$popularity
+oxxxymiron_pop <- clean_info_dataset %>%
+  filter(name == "Oxxxymiron") %>%
+  pull(popularity)
+noizemc_pop <- clean_info_dataset %>%
+  filter(name == "Noize MC") %>%
+  pull(popularity)
+face_pop <- clean_info_dataset %>%
+  filter(name == "FACE") %>%
+  pull(popularity)
+icepeak_pop <- clean_info_dataset %>%
+  filter(name == "IC3PEAK") %>%
+  pull(popularity)
+maxkorzh_pop <- clean_info_dataset %>%
+  filter(name == "Max Korzh") %>%
+  pull(popularity)
+skriptonite_pop <- clean_info_dataset %>%
+  filter(name == "Skryptonite") %>%
+  pull(popularity)
+basta_pop <- clean_info_dataset %>%
+  filter(name == "Basta") %>%
+  pull(popularity)
+eldzhey_pop <- clean_info_dataset %>%
+  filter(name == "Eldzhey") %>%
+  pull(popularity)
 
-popularity <- c(oxxxymiron_pop,
+popularity2 <- c(oxxxymiron_pop,
                 noizemc_pop,
                 face_pop,
                 icepeak_pop,
@@ -95,14 +119,30 @@ popularity <- c(oxxxymiron_pop,
                 eldzhey_pop)
 
 # Extract all the follower data for each artist
-oxxxymiron_followers <- oxxxymiron$followers.total
-noizemc_followers <- noizemc$followers.total
-face_followers <- face$followers.total
-icepeak_followers <- icepeak$followers.total
-maxkorzh_followers <- maxkorzh$followers.total
-skriptonite_followers <- skriptonite$followers.total
-basta_followers <- basta$followers.total
-eldzhey_followers <- eldzhey$followers.total
+oxxxymiron_followers <- clean_info_dataset %>%
+  filter(name == "Oxxxymiron") %>%
+  pull(followers.total)
+noizemc_followers <- clean_info_dataset %>%
+  filter(name == "Noize MC") %>%
+  pull(followers.total)
+face_followers <- clean_info_dataset %>%
+  filter(name == "FACE") %>%
+  pull(followers.total)
+icepeak_followers <- clean_info_dataset %>%
+  filter(name == "IC3PEAK") %>%
+  pull(followers.total)
+maxkorzh_followers <- clean_info_dataset %>%
+  filter(name == "Max Korzh") %>%
+  pull(followers.total)
+skriptonite_followers <- clean_info_dataset %>%
+  filter(name == "Skryptonite") %>%
+  pull(followers.total)
+basta_followers <- clean_info_dataset %>%
+  filter(name == "Basta") %>%
+  pull(followers.total)
+eldzhey_followers <- clean_info_dataset %>%
+  filter(name == "Eldzhey") %>%
+  pull(followers.total)
 
 followers <- c(oxxxymiron_followers,
                noizemc_followers,
@@ -113,13 +153,15 @@ followers <- c(oxxxymiron_followers,
                basta_followers,
                eldzhey_followers)
 
-scatterplot_data <- data.frame(x = popularity, y = followers)
+scatterplot_data <- data.frame(x = followers, y = popularity2) 
+
 
 #Plot graph 
-ggplot(scatterplot_data, aes(x = popularity, y = followers)) +
+ggplot(scatterplot_data, aes(x = popularity2, y = followers)) +
 geom_point(aes(colour = factor(artists_pop_followers)), size = 1.75)
 
 ```
+
 
 
 # Model {#sec-model}
@@ -128,24 +170,35 @@ geom_point(aes(colour = factor(artists_pop_followers)), size = 1.75)
 #| echo: false
 #| message: false
 #| label: fig-skriptonite_recs
-#| fig-cap: Spotify's Recommended Artists for Skriptonite 
+#| fig-cap: Spotify's Recommended Artists for Skriptonite and FACE
 
-lm(y ~ x, data)
+library(tidyverse)
+library(stargazer)
 
 # Create a dataframe
 data <- data.frame(
-  option = c(1:20),  
-# Assign a numeric ID to each option
-  recommended = c(1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0,1)
+  Russia = c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1),  
+  # Assign a numeric ID to each option
+  recommendations = c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0)
 )
 # There should be 20 options in the recommended variable - replace all the 0's for 1's if they are pro-Russia
+#the glm model works like this - your first variable is the outcome (y) 
+#and the second one, after the ~ is the predictor variable (x).
+#so in this code you're looking at the influence of whether or not an artist is pro-Russia (0 = they're not)
+#on whether or not the recommended artists are also pro-Russian (0 = they're not)
 
 # Fit a logistic regression model
-model <- glm(recommended ~ option, data = data, family = binomial())
+
+model <- glm(recommendations ~ Russia, data = data, family = "binomial")
 
 # Extract the model coefficients
 coefficients <- coef(model)
 
+#figuring out the odds ratio
+exp(coef(model))
+#this gives you the log odds 
+
+stargazer(model, type = "html", out = "results.htm")
 
 ```
 
@@ -156,30 +209,17 @@ coefficients <- coef(model)
 #| label: fig-face_recs
 #| fig-cap: Spotify's Recommended Artists for FACE 
 
-
-# Create a dataframe
-data <- data.frame(
-  option = c(1:20),  
-# Assign a numeric ID to each option
-  recommended = c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1)
-)
-# There should be 20 options in the recommended variable - replace all the 0's for 1's if they are pro-Russia
-
-# Fit a logistic regression model
-model <- glm(recommended ~ option, data = data, family = binomial())
-
-# Extract the model coefficients
-coefficients <- coef(model)
-
-
 ```
 
 # Results {#sec-results}
 
+There are several key results that can be gleaned from the above visualizations. First, as {@fig-popularity} shows, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity among Spotify users. We can see that Skryptonite, the Russian rapper is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who is 
+
+
 # Discussion {#sec-discussion}
 
 ## First Finding:  {#sec-first-point}
-The first finding that was 
+The first finding, as outlined in {@fig-popularity} is that the political affilation of a certain artist does not seem to impact their popularity among listeners. 
 
 ## Second Finding: {#sec-second-point}
 
@@ -187,8 +227,13 @@ The first finding that was
 
 ## Project Limitations and Next Steps {#sec-limitations}
 
-\newpage
+There are number of project limitations that should be considered when reviewing this data. First, the Spotify API posed a lot of issues when it came to accessing telling data. When initially setting out to do this project, I had intended to track the popularity of Russian and Ukrainian artists on Spotify over the course of the first six months following the Russian invasion of Ukraine. However, after many, many attempts, and becoming overly familiar with all of the functions within the Spotify R package {@citespotifyr}, it became apparent that it is impossible to access either an artist's popularity rating or monthly listeners number of the course of a specified period of time without the use of a Third-Party software to do so. Had I been successful in this, it would have been interesting to see how and if the popularity of various artists changed over the course of the war, particularly as people continued to make everyday, conscious choices in boycotting products and artists associated with Russia. Moreover, there is also a function that allows developers to see the popularity of an artist within certain Spotify markets, but it also was difficult to use and hard to actually gain this data. After a lot of trial and error, this paper was able to get a few key variables about artists, but future work in this could seek to review more deeply the question of Russsian and Ukrainian musical popularity over time and analyzing differences within various key markets. 
 
+In addition, my own personal biases may have played a role in the decision-making process as it relates to reviewing the artist's political affiliations. As mentioned above, the criteria for deciding whether an artist was supportive of the Putin regime or not was based on a review of several factors. First, I analyzed their respective social media pages (namely Facebook, VKontakte, and Instagram) to see if they have posted any statements online about their stance on Russia's invasion of Ukraine. If an artist did not have any statements or other symbols of solidarity to Ukraine, I assumed that they were pro-Kremlin, or at the very least, unwilling to use their online platforms to speak out against the regime. This could have led to a false assumption on whether someone was supportive of Putin, because as is well-documented, saying openly critical things of the Russian government poses many personal risks to not only musicians and artists, but ordinary people. Another factor that I incorporated in this decision-making process was seeing if they had any concerts happening in Russia or if they were performing internationally. This serves as a very telling indicator because most experts say that only artists who are pro-Putin (or at least silently complicit) are still able to perform within Russia without being banned by authorities. In this sense, while I attempt to cross reference various indicators of political affilation, there is inevitably room for error in this approach. 
+
+Finally, another important point to note is that, as mentioned above, Spotify has been banned in Russia and the organization has stopped all of its operations within the country in March 2022. While it is difficult to know how many people within Russia are using VPNs to circumvent government bans and access Spotify, this paper does not address how and if the ban has impacted Russian artist popularity since the start of the ban (largely due to the aforementioned reasons). Regardless, it is important to note that the ban must have played some kind of role in their popularity, as not all people are able to use VPNs to gain access to Spotify within Russia. Moreover, while this seems to be related to privacy issues, the Spotify API does not allow developers to access demographic data of a certain artist's listeners. This data would have provided invaluable insights, particularly in showing which countries have the most users actively listening to either pro- or anti-Kremlin artists. This data could then be tied to larger ideas on the proliferation of Russian disinformation around the world, and could offer valuable insights into the impact and permeation of pro-Kremlin narratives, and how they translate into individual's musical preferences and choices. 
+
+\newpage
 # References
 
 
