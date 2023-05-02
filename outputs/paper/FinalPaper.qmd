@@ -219,13 +219,16 @@ There are several key results that can be gleaned from the above visualizations.
 Next, {@fig-pop_followers} looks at the correlation between total follower counts and the popularity number assigned by Spotify. What can be seen in this graph is that, as with {@fig_popularity}, staunchly pro-Putin rapper Skryptonite has the most amount of followers and the highest popularity score. Noize MC, who is ardently anti-Putin, has both the lowest popularity rating and lowest amount of followers. Interestingly, Oxxxymiron and Eldzhey, who are on very opposite ends of the political spectrum, ranked very close in both popularity and follower count. 
 
 # Discussion {#sec-discussion}
+This section will offer a summary and discussion of the main findings that emerged out of this report. 
 
 ## First Finding:  {#sec-first-point}
 The first finding, as outlined in {@fig-popularity} is that the political affilation of a certain artist does not seem to impact their popularity among listeners. 
 
 ## Second Finding: {#sec-second-point}
+Next, the second main finding is that, while the model's numbers are not statistically significant, reviewing the actual artists demonstrates that Spotify is encouraging engagement with pro-Russian musicians on the platform through its recommendations. 
 
 ## Third Finding: {#sec-third-point}
+Finally, another key finding of this paper is that while content-wise, many of the pro-Russian artists produced media that is similar, they did not have a lot of overlap in terms of Spotify's recommendations. 
 
 ## Project Limitations and Next Steps {#sec-limitations}
 
