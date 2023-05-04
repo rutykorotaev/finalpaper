@@ -205,6 +205,8 @@ ggplot(eldzhey_top10, aes(x = name, y = followers)) +
 
 ```
 
+The following graphic in {@fig_maxkorzh_related} shows the related artists for the pro-Russian artist Max Korzh. 
+
 ```{r}
 #| echo: false
 #| message: false
@@ -233,6 +235,7 @@ ggplot(max_top10, aes(x = name, y = followers)) +
   coord_flip() +
   labs(x = "Artist", y = "Total Followers")
 ```
+Next, in {@fig_basta_related}, we can see the top artists taht were recommended for the pro-Kremlin artist Basta.
 
 ```{r}
 #| echo: false
@@ -262,18 +265,34 @@ ggplot(basta_top10, aes(x = name, y = followers)) +
   geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
   coord_flip() +
   labs(x = "Artist", y = "Total Followers")
+
+```
+
+Now, I will be showing the recommended artists for the anti-Kremlin Russian artists. Below is the visualization for the rapper IC3PEAK. 
+
+```{r}
+
 ```
 
 
+Here, we have a graph outlining the recommendations for Oxxxmiron, who has been a very outspoken critic of the war and of the Kremlin leadership. Due to his words against the Russian leadership, he has been exiled from Russia and forbidden from performing there. 
+
+```{r}
+
+```
+
+Finally, below is the visualization for the recommendation for NOIZE MC.
+
+```{r}
+
+```
 
 
 # Model {#sec-model}
 
 Below is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artists) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist. A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
 
-This code is performing a logistic regression analysis to investigate whether an artist's political stance (pro-Russia or anti-Russia) is associated with the recommendations Spotify provides for them.
-
-The data.frame function creates a dataframe called data which contains two columns: Russia and recommendations. The Russia column contains binary values indicating whether the artist is pro-Russia (1) or anti-Russia (0), and the recommendations column contains binary values indicating whether the recommended artists are also pro-Russia (1) or anti-Russia (0).
+The `data.frame` functions helped to create a data frame with two main columns: One was for artists who are Pro-Russian, called "Pro_Russia" and the other was "Spotify_Recommendations." The Russia column contains binary values indicating whether the artist is pro-Russia (1) or anti-Russia (0), and the recommendations column contains binary values indicating whether the recommended artists are also pro-Russia (1) or anti-Russia (0). Further, the `glm` function works to apply a logistic regression model to the data, with Spotify_Recommendations being thte outcome variable, and Pro_Russia being the predictor variable. 
 
 The glm function fits a logistic regression model to the data, with recommendations as the outcome variable and Russia as the predictor variable. The family argument specifies that a binomial distribution should be used, since the outcome variable is binary.
 
@@ -281,8 +300,7 @@ The coef function extracts the coefficients from the fitted model, which represe
 
 The exp(coef(model)) code computes the exponentiated coefficients, which represent the odds ratios of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).
 
-Finally, the stargazer function is used to generate an HTML table that displays the results of the logistic regression model. The type argument specifies that an HTML table should be generated, and the out argument specifies the name of the output file.
-the glm model works like this - your first variable is the outcome (y)and the second one, after the ~ is the predictor variable (x).so in this code you're looking at the influence of whether or not an artist is pro-Russia (0 = they're not)on whether or not the recommended artists are also pro-Russian (0 = they're not)
+
 
 ```{r}
 #| echo: false
@@ -306,7 +324,6 @@ exp(coef(model))
 
 
 ```
-
 
 # Results {#sec-results}
 
