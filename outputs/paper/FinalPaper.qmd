@@ -234,7 +234,9 @@ ggplot(max_top10, aes(x = name, y = followers)) +
   geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
   coord_flip() +
   labs(x = "Artist", y = "Total Followers")
+
 ```
+
 Next, in {@fig_basta_related}, we can see the top artists taht were recommended for the pro-Kremlin artist Basta.
 
 ```{r}
@@ -246,17 +248,15 @@ Next, in {@fig_basta_related}, we can see the top artists taht were recommended 
 basta_related <- 
   read_csv(here::here("inputs/data/basta_related_clean.csv"))
 
-# Extract the top ten artists recommended by Spotify
 basta_top10 <- basta_related %>% 
-  filter(name %in% c("Noggano", "Zanuda", "9 Gramm", "Triagrutrika", "Kaspiyskiy Gruz", "Kravz", "Rem Digga", "	
-Smoky Mo", "Slovetskii", "L'One")) %>% 
+  filter(name %in% c("Noggano", "Zanuda", "9 Gramm", "Triagrutrika", "Kaspiyskiy Gruz", "Kravz", "Rem Digga", "Smoky Mo", "Slovetskii", "L'One")) %>% 
   group_by(name) %>% 
   summarise(followers = sum(followers.total), n = n()) %>% 
   arrange(desc(n)) %>% 
   head(10)
 
 # Define colours of artists, with blue being anti-RU and red being pro-RU
-basta_top10$color <- ifelse(basta_top10$name %in% c("Kravz"), "blue", "red")
+basta_top10$color <- ifelse(basta_top10$name == "Kravz", "blue", "red")
 
 # Plot the data
 ggplot(basta_top10, aes(x = name, y = followers)) + 
@@ -267,17 +267,70 @@ ggplot(basta_top10, aes(x = name, y = followers)) +
   labs(x = "Artist", y = "Total Followers")
 
 ```
-
-Now, I will be showing the recommended artists for the anti-Kremlin Russian artists. Below is the visualization for the rapper IC3PEAK. 
+Next, I will be showing the recommended artists for the anti-Kremlin Russian artists. Below in {@fig_icepeak_related} is the visualization for the rapper IC3PEAK. 
 
 ```{r}
+#| echo: false
+#| message: false
+#| label: fig_icepeak_related
+#| fig-cap: Spotify Recommendations for IC3PEAK 
+
+icepeak_related <- 
+  read_csv(here::here("inputs/data/icepeak_related_clean.csv"))
+
+# Extract the top ten artists recommended by Spotify
+icepeak_top10 <- icepeak_related %>% 
+  filter(name %in% c("Crim3s", "Sidewalks and Skeletons", "Zheani", "Jazmin Bean", "My", "Banshee", "Pastel Ghost", "King Plague", "GRLwood", "polnalyubvi")) %>% 
+  group_by(name) %>% 
+  summarise(followers = sum(followers.total), n = n()) %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+
+# Define colors based on artist's name
+icepeak_top10$color <- ifelse(icepeak_top10$name %in% c("Crim3s", "Sidewalks and Skeletons", "Zheani", "Jazmin Bean", "Banshee", "Pastel Ghost", "King Plague", "GRLwood"), "green", "red")
+icepeak_top10$color <- ifelse(icepeak_top10$name %in% c("My", "polnalyubvi"), "red", icepeak_top10$color)
+
+# Plot the data
+ggplot(icepeak_top10, aes(x = followers, y = name)) +
+  geom_segment(aes(x = 0, xend = followers, y = name, yend = name),
+  color = icepeak_top10$color, size = 1.5) +
+  geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
+  scale_x_continuous(labels = scales::comma) +
+  labs(x = "Total Followers", y = "Artist") +
+  theme(axis.text.y = element_text(hjust = 0))
 
 ```
-
-
-Here, we have a graph outlining the recommendations for Oxxxmiron, who has been a very outspoken critic of the war and of the Kremlin leadership. Due to his words against the Russian leadership, he has been exiled from Russia and forbidden from performing there. 
+Here, in {@fig_oxxxymiron_related} we have a graph outlining the recommendations for Oxxxymiron, who has been a very outspoken critic of the war and of the Kremlin leadership. Due to his words against the Russian leadership, he has been exiled from Russia and forbidden from performing there. 
 
 ```{r}
+#| echo: false
+#| message: false
+#| label: fig_oxxxymiron_related
+#| fig-cap: Spotify Recommendations for Oxxxymiron 
+
+oxxxymiron_related <- 
+  read_csv(here::here("inputs/data/oxxymironrelated_clean.csv"))
+
+# Extract the top ten artists recommended by Spotify
+oxxxymiron_top10 <- oxxxymiron_related %>% 
+  filter(name %in% c("ATL", "Husky", "Thomas Mraz", "LSP", "Mnogoznaal", "Krovostok", "43ai", "Luperkal", "Markul", "Timati")) %>% 
+  group_by(name) %>% 
+  summarise(followers = sum(followers.total), n = n()) %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+
+# Define colors based on artist's name
+oxxxymiron_top10$color <- ifelse(oxxxymiron_top10$name %in% c("Luperkal", "Krovostok"), "blue", "red")
+
+# Plot the data
+ggplot(oxxxymiron_top10, aes(x = followers, y = name)) +
+  geom_segment(aes(x = 0, xend = followers, y = name, yend = name),
+  color = oxxxymiron_top10$color, size = 1.5) +
+  geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
+  scale_x_continuous(labels = scales::comma) +
+  labs(x = "Total Followers", y = "Artist") +
+  theme(axis.text.y = element_text(hjust = 0))
+
 
 ```
 
