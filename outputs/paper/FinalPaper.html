@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.269">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ruty Korotaev">
+<meta name="dcterms.date" content="2023-04-19">
+
+<title>Spotify and the Russo-Ukrainian War</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+
+<script src="FinalPaper_files/libs/clipboard/clipboard.min.js"></script>
+<script src="FinalPaper_files/libs/quarto-html/quarto.js"></script>
+<script src="FinalPaper_files/libs/quarto-html/popper.min.js"></script>
+<script src="FinalPaper_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="FinalPaper_files/libs/quarto-html/anchor.min.js"></script>
+<link href="FinalPaper_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="FinalPaper_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="FinalPaper_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="FinalPaper_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="FinalPaper_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+<script src="FinalPaper_files/libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="FinalPaper_files/libs/lightable-0.0.1/lightable.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Spotify and the Russo-Ukrainian War</h1>
+<p class="subtitle lead">An Analysis of Russian Artist Popularity Amid the War in Ukraine</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ruty Korotaev </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">April 19, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+<div>
+  <div class="abstract">
+    <div class="abstract-title">Abstract</div>
+    Following Russia’s escalated invasion of Ukraine in February 2022, countries across the West and around the world have sought to end business dealings with Russian companies and boycott pro-Russian public figures. This widespread effort has gone from the highest levels of business and government, to individuals opting to stop purchasing Russian goods and not engaging with Russian popular culture, including musicians. This report uses data collected from Spotify APIs to address two main research questions. First, how has the popularity and following of both pro- and anti-Kremlin Russian musicians changed since the onset of the war in Ukraine. And two, how are Spotify’s recommendation features impacting engagement with these Russian artists, and is it able to differentiate between the political affiliations of these artists? Among the main findings is that for many Russian-speaking Spotify users, the political affiliations of a given artists do not seem to play a role in their popularity, and there was very little difference in popularity among pro- and anti-Kremlin musicians. Additionally, in considering literature that discusses how social media platforms can lead to users down online rabbit holes of disinformation, conspiracy theories, and radicalization, this paper reviewed whether Spotify’s recommendation function played a role in encouraging users to engage with pro-Kremlin musicians. As such, this paper discovered that the vast majority of Spotify’s recommendations for both pro- and anti-Kremlin artists was for pro-Kremlin artists, though it was able to differentiate between Russian and Ukrainian artists (some of whom still perform in Russian).
+  </div>
+</div>
+
+</header>
+
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
+<p>Amid much of the Western world’s efforts to sanction Kremlin-affiliated enterprises and Russian businesses, the movement to limit engagement with Russian popular culture has been an interesting side effect of the conflict. Following Russia’s escalated invasion of Ukraine in February 2022, many Ukrainians and Ukrainian allies have rejected any forms of cultural engagement with Russian artists and the Russian language, which ranges from boycotting Western businesses still operating in the Russia and has trickled down to the music people listen to. This research paper looks at data collected through Spotify API to understand how the popularity of openly pro- and anti- Kremlin Russian musicians has shifted since the war began, looking at a time period between February and October 2022, taking into account the six months during which there was the most action in terms of sanctioning and banning Russian outlets (and vice versa within Russia and its bans of Western organizations). Among the pro-Kremlin artists are Basta, Eldzhey, Max Korzh, and Skryptonite, while the anti-Kremlin artists (many of whom have been banned from Russia) are FACE, IC3PEAK, Noize MC, and Oxxxymiron The paper will also explore the relationship between an artist’s popularity rating and their follower count, to see how it may have shifted and changed over time.</p>
+<p>Further, the second part of this paper will take from literature around other social media outlets which analyzes how recommendations can lead users down certain rabbit holes. While these can sometimes be harmless, the worst cases can lead people down pathes to radicalization, entrenching users into information environments that spread mis- and disinformation, conspiracy theories, and far-right rhethoric. This paper analyzes how Spotify’s recommendation features encourages or discourages users to engage with Russian users, and whether it is able to distinguish between the political affiliations of different artists.</p>
+<p>This paper is divided into several key sections. The Data section {<a href="#sec-data">Section&nbsp;2</a>} will outline where the data is from and what main variables were explored in the dataset. All of the data visualizations will be included in this section and will seek to show the various ways popularity and total follower counts can offer insights into larger trends among Russian-speaking audiences. There will also be several visualizations looking at the <code>get_related_artists</code> function and how it can offer insights into Spotify’s API algorithm. Next, the Results section {<a href="#sec-results">Section&nbsp;4</a>} will provide an overview of the main findings that can be made by the data visualizations, which will be further explored within the {<a href="#sec-discussion">Section&nbsp;5</a>} section, which will have three main discussion points that draw on conclusions that can be made based on the data. The project findings and limitations can be found in the last section {<a href="#sec-limitations">Section&nbsp;5.4</a>}, which will discuss the various issues with the dataset and the Spotify API apparatus, as well as potential improvements for future projects and a few thoughts on how my personal biases impacted the results.</p>
+</section>
+<section id="sec-data" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data</h1>
+<p>This paper uses data collected using the Spotify API “spotifyr” <span class="citation" data-cites="citespotifyr">(<a href="#ref-citespotifyr" role="doc-biblioref">Charlie Thompson and Wolff 2022</a>)</span>, and visualizes data from four top pro-Kremlin Russian artists and four top anti-Kremlin Russian artists to understand how and if their popularity on Spotify has been affected since the start of the escalated invasion of Ukraine. As part of this, the main variables that were used in this project include popularity, total followers, artist name, which were extracted using the <code>get_artists</code> function. In addition, I used data from the <code>get_related_artists</code> function, that shows the top 20 artists that come up in Spotify’s recommendations when searching any given musician. This paper uses R <span class="citation" data-cites="citeR">(<a href="#ref-citeR" role="doc-biblioref">R Core Team 2020</a>)</span> to analyze the dataset, and several R packages were included in the project, including “tidyverse” <span class="citation" data-cites="citetidyverse">(<a href="#ref-citetidyverse" role="doc-biblioref">Wickham et al. 2019</a>)</span>, “dplyr” <span class="citation" data-cites="citedplyr">(<a href="#ref-citedplyr" role="doc-biblioref">Wickham et al. 2021</a>)</span>, and “knitr” <span class="citation" data-cites="citeknitr">(<a href="#ref-citeknitr" role="doc-biblioref">Xie 2021</a>)</span>.</p>
+<p>To start, {<a href="#fig-popularity">Figure&nbsp;1</a>} hones in on the popularity variable and compares the popularity between the pro- (in red) and anti-Kremlin (in blue) artists</p>
+<section id="popularity-pro--vs.-anti-kremlin-russian-artists-on-spotify" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="popularity-pro--vs.-anti-kremlin-russian-artists-on-spotify"><span class="header-section-number">2.1</span> Popularity: Pro- vs.&nbsp;Anti-Kremlin Russian Artists on Spotify</h2>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in geom_point(color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", :
+Ignoring unknown parameters: `linewidth`</code></pre>
+</div>
+<div class="cell-output-display">
+<div id="fig-popularity" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="FinalPaper_files/figure-html/fig-popularity-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Popularity of Anti and Pro-Kremlin Russian Artists on Spotify Amid the War in Ukraine</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+<p>Next, {<a href="#fig-pop_followers">Figure&nbsp;2</a>} looks at whether there is a correlation between the artists’ follower counts and their popularity score.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-pop_followers" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="FinalPaper_files/figure-html/fig-pop_followers-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Correlation Between Follower Count and Popularity Score</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Next, the following few visualizations will focus on the second part of this paper’s analysis, which focuses on the recommendations function of Spotify and the role it may play in encouraging users to engage with more pro-Russian artists that are available on the platform. In it, we look at the recommendations for Eldzhey, who is one of Russia’s most prominent rappers and has been openly supportive of the war in Ukraine. He has been officially banned from entering Ukraine, following a concert he gave in 2018 in the Russian-occupied region of Crimea.</p>
+<div class="cell">
+
+</div>
+</section>
+</section>
+<section id="sec-model" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Model</h1>
+<p>Below is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artists) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist. A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a “1” value and those against Putin being assigned “0”.</p>
+<p>This code is performing a logistic regression analysis to investigate whether an artist’s political stance (pro-Russia or anti-Russia) is associated with the recommendations Spotify provides for them.</p>
+<p>The data.frame function creates a dataframe called data which contains two columns: Russia and recommendations. The Russia column contains binary values indicating whether the artist is pro-Russia (1) or anti-Russia (0), and the recommendations column contains binary values indicating whether the recommended artists are also pro-Russia (1) or anti-Russia (0).</p>
+<p>The glm function fits a logistic regression model to the data, with recommendations as the outcome variable and Russia as the predictor variable. The family argument specifies that a binomial distribution should be used, since the outcome variable is binary.</p>
+<p>The coef function extracts the coefficients from the fitted model, which represent the log odds of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).</p>
+<p>The exp(coef(model)) code computes the exponentiated coefficients, which represent the odds ratios of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).</p>
+<p>This code performs a logistic regression analysis on a dataset and visualizes the output using the kable and kableExtra packages in R.</p>
+<p>The first block of code creates a data frame called data that includes two variables, Pro_Russia and Spotify_Recommendations. Pro_Russia is a binary variable indicating whether or not an artist is pro-Russia, and Spotify_Recommendations is a binary variable indicating whether or not that artist is recommended on Spotify. The second block of code applies a logistic regression model to the data using the glm function. The dependent variable is Spotify_Recommendations and the independent variable is Pro_Russia. The model is stored in an object called model. The third block of code extracts the model coefficients from model using the broom::tidy() function from the broom package. The results are stored in a data frame called model_coef. The fourth block of code uses kable to create an HTML table of the model coefficients. The align argument specifies the alignment of the columns, and kable_styling formats the table with CSS styles. The fifth block of code prints the table to the console.</p>
+<p>Finally, the stargazer function is used to generate an HTML table that displays the results of the logistic regression model. The type argument specifies that an HTML table should be generated, and the out argument specifies the name of the output file. the glm model works like this - your first variable is the outcome (y)and the second one, after the ~ is the predictor variable (x).so in this code you’re looking at the influence of whether or not an artist is pro-Russia (0 = they’re not)on whether or not the recommended artists are also pro-Russian (0 = they’re not)</p>
+<div class="cell">
+<div id="fig-skriptonite_recs" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:left;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:left;">
+p.value
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+20.56607
+</td>
+<td style="text-align:left;">
+3964.631
+</td>
+<td style="text-align:right;">
+0.0051874
+</td>
+<td style="text-align:left;">
+0.9958611
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Pro_Russia
+</td>
+<td style="text-align:right;">
+-18.83147
+</td>
+<td style="text-align:left;">
+3964.631
+</td>
+<td style="text-align:right;">
+-0.0047499
+</td>
+<td style="text-align:left;">
+0.9962102
+</td>
+</tr>
+</tbody>
+
+</table>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Spotify’s Recommended Artists for Skriptonite and FACE</figcaption><p></p>
+</figure>
+</div>
+</div>
+</section>
+<section id="sec-results" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Results</h1>
+<p>There are several key results that can be gleaned from the above visualizations. First, as {<span class="citation" data-cites="fig_popularity">(<a href="#ref-fig_popularity" role="doc-biblioref"><strong>fig_popularity?</strong></a>)</span>} shows, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity among Spotify users. We can see that Skryptonite, the Russian rapper is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who has been incredibly vocal about being against the war in Ukraine, and has since been banned within Russia and forced to leave the country.</p>
+<p>Next, {<a href="#fig-pop_followers">Figure&nbsp;2</a>} looks at the correlation between total follower counts and the popularity number assigned by Spotify. What can be seen in this graph is that, as with {<span class="citation" data-cites="fig_popularity">(<a href="#ref-fig_popularity" role="doc-biblioref"><strong>fig_popularity?</strong></a>)</span>}, staunchly pro-Putin rapper Skryptonite has the most amount of followers and the highest popularity score. Noize MC, who is ardently anti-Putin, has both the lowest popularity rating and lowest amount of followers. Interestingly, Oxxxymiron and Eldzhey, who are on very opposite ends of the political spectrum, ranked very close in both popularity and follower count.</p>
+</section>
+<section id="sec-discussion" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Discussion</h1>
+<p>This section will offer a summary and discussion of the main findings that emerged out of this report.</p>
+<section id="sec-first-point" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="sec-first-point"><span class="header-section-number">5.1</span> First Finding:</h2>
+<p>The first finding, as outlined in {<a href="#fig-popularity">Figure&nbsp;1</a>} is that the political affilation of a certain artist does not seem to impact their popularity among listeners.</p>
+</section>
+<section id="sec-second-point" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="sec-second-point"><span class="header-section-number">5.2</span> Second Finding:</h2>
+<p>Next, the second main finding is that, while the model’s numbers are not statistically significant, reviewing the actual artists demonstrates that Spotify is encouraging engagement with pro-Russian musicians on the platform through its recommendations.</p>
+</section>
+<section id="sec-third-point" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-third-point"><span class="header-section-number">5.3</span> Third Finding:</h2>
+<p>Finally, another key finding of this paper is that while content-wise, many of the pro-Russian artists produced media that is similar, they did not have a lot of overlap in terms of Spotify’s recommendations.</p>
+</section>
+<section id="sec-limitations" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="sec-limitations"><span class="header-section-number">5.4</span> Project Limitations and Next Steps</h2>
+<p>There are number of project limitations that should be considered when reviewing this data. First, the Spotify API posed a lot of issues when it came to accessing telling data. When initially setting out to do this project, I had intended to track the popularity of Russian and Ukrainian artists on Spotify over the course of the first six months following the Russian invasion of Ukraine. However, after many, many attempts, and becoming overly familiar with all of the functions within the Spotify R package {<span class="citation" data-cites="citespotifyr">Charlie Thompson and Wolff (<a href="#ref-citespotifyr" role="doc-biblioref">2022</a>)</span>}, it became apparent that it is impossible to access either an artist’s popularity rating or monthly listeners number of the course of a specified period of time without the use of a Third-Party software to do so. Had I been successful in this, it would have been interesting to see how and if the popularity of various artists changed over the course of the war, particularly as people continued to make everyday, conscious choices in boycotting products and artists associated with Russia. Moreover, there is also a function that allows developers to see the popularity of an artist within certain Spotify markets, but it also was difficult to use and hard to actually gain this data. After a lot of trial and error, this paper was able to get a few key variables about artists, but future work in this could seek to review more deeply the question of Russsian and Ukrainian musical popularity over time and analyzing differences within various key markets.</p>
+<p>In addition, my own personal biases may have played a role in the decision-making process as it relates to reviewing the artist’s political affiliations. As mentioned above, the criteria for deciding whether an artist was supportive of the Putin regime or not was based on a review of several factors. First, I analyzed their respective social media pages (namely Facebook, VKontakte, and Instagram) to see if they have posted any statements online about their stance on Russia’s invasion of Ukraine. If an artist did not have any statements or other symbols of solidarity to Ukraine, I assumed that they were pro-Kremlin, or at the very least, unwilling to use their online platforms to speak out against the regime. This could have led to a false assumption on whether someone was supportive of Putin, because as is well-documented, saying openly critical things of the Russian government poses many personal risks to not only musicians and artists, but ordinary people. Another factor that I incorporated in this decision-making process was seeing if they had any concerts happening in Russia or if they were performing internationally. This serves as a very telling indicator because most experts say that only artists who are pro-Putin (or at least silently complicit) are still able to perform within Russia without being banned by authorities. In this sense, while I attempt to cross reference various indicators of political affilation, there is inevitably room for error in this approach.</p>
+<p>Finally, another important point to note is that, as mentioned above, Spotify has been banned in Russia and the organization has stopped all of its operations within the country in March 2022. While it is difficult to know how many people within Russia are using VPNs to circumvent government bans and access Spotify, this paper does not address how and if the ban has impacted Russian artist popularity since the start of the ban (largely due to the aforementioned reasons). Regardless, it is important to note that the ban must have played some kind of role in their popularity, as not all people are able to use VPNs to gain access to Spotify within Russia. Moreover, while this seems to be related to privacy issues, the Spotify API does not allow developers to access demographic data of a certain artist’s listeners. This data would have provided invaluable insights, particularly in showing which countries have the most users actively listening to either pro- or anti-Kremlin artists. This data could then be tied to larger ideas on the proliferation of Russian disinformation around the world, and could offer valuable insights into the impact and permeation of pro-Kremlin narratives, and how they translate into individual’s musical preferences and choices.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level1 unnumbered" data-number="6">
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">6 References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-citespotifyr" class="csl-entry" role="doc-biblioentry">
+Charlie Thompson, Josiah Parry, Daniel Antal, and Tom Wolff. 2022. <em>Spotifyr: R Wrapper for the "Spotify" Web API</em>. <a href="https://CRAN.R-project.org/package=spotifyr">https://CRAN.R-project.org/package=spotifyr</a>.
+</div>
+<div id="ref-citeR" class="csl-entry" role="doc-biblioentry">
+R Core Team. 2020. <em>R: A Language and Environment for Statistical Computing</em>. Vienna, Austria: R Foundation for Statistical Computing. <a href="https://www.R-project.org/">https://www.R-project.org/</a>.
+</div>
+<div id="ref-citetidyverse" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, Mara Averick, Jennifer Bryan, Winston Chang, Lucy D’Agostino McGowan, Romain François, Garrett Grolemund, et al. 2019. <span>“Welcome to the <span class="nocase">tidyverse</span>.”</span> <em>Journal of Open Source Software</em> 4 (43): 1686. <a href="https://doi.org/10.21105/joss.01686">https://doi.org/10.21105/joss.01686</a>.
+</div>
+<div id="ref-citedplyr" class="csl-entry" role="doc-biblioentry">
+Wickham, Hadley, Romain François, Lionel Henry, and Kirill Müller. 2021. <em>Dplyr: A Grammar of Data Manipulation</em>. <a href="https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr">https://dplyr.tidyverse.org, https://github.com/tidyverse/dplyr</a>.
+</div>
+<div id="ref-citeknitr" class="csl-entry" role="doc-biblioentry">
+Xie, Yihui. 2021. <em>Knitr: A General-Purpose Package for Dynamic Report Generation in r</em>. <a href="https://yihui.org/knitr/">https://yihui.org/knitr/</a>.
+</div>
+</div></section></div></main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
