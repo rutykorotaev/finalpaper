@@ -267,8 +267,8 @@ ggplot(basta_top10, aes(x = name, y = followers)) +
     color = basta_top10$color, size = 1.5) +
   geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
   coord_flip() +
+  scale_y_continuous(labels = scales::comma) +
   labs(x = "Artist", y = "Total Followers")
-
 ```
 Next, I will be showing the recommended artists for the anti-Kremlin Russian artists. Below in @fig_icepeak_related is the visualization for the rapper IC3PEAK. 
 
