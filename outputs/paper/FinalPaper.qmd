@@ -331,15 +331,41 @@ ggplot(oxxxymiron_top10, aes(x = followers, y = name)) +
   labs(x = "Total Followers", y = "Artist") +
   theme(axis.text.y = element_text(hjust = 0))
 
-
 ```
 
-Finally, below is the visualization for the recommendation for NOIZE MC.
+Finally, {@fig_noizemc_related} shows the graph for Spotify's recommendations for NOIZE MC, who has also been very outspoken in his support for Ukraine and has since been exiled from Russia.
 
 ```{r}
+#| echo: false
+#| message: false
+#| label: fig_noizemc_related
+#| fig-cap: Spotify Recommendations for Noize MC 
+
+noizemc_related <- 
+  read_csv(here::here("inputs/data/noizemc_related_clean.csv"))
+
+# Extract the top ten artists recommended by Spotify
+noizemc_top10 <- noizemc_related %>% 
+  filter(name %in% c("Anacondaz", "ATL", "43ai","Krovostok", "Husky", "Vlady", "25/17", "LSP", "Oxxxymiron", "Lumen")) %>% 
+  group_by(name) %>% 
+  summarise(followers = sum(followers.total), n = n()) %>% 
+  arrange(desc(n)) %>% 
+  head(10)
+
+# Define colors based on artist's name
+noizemc_top10$color <- ifelse(noizemc_top10$name %in% c("Krovostok", "Vlady", "25/17","Oxxxymiron"), "blue", "red")
+
+# Plot the data
+ggplot(noizemc_top10, aes(x = followers, y = name)) +
+  geom_segment(aes(x = 0, xend = followers, y = name, yend = name),
+  color = noizemc_top10$color, size = 1.5) +
+  geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
+  scale_x_continuous(labels = scales::comma) +
+  labs(x = "Total Followers", y = "Artist") +
+  theme(axis.text.y = element_text(hjust = 0))
+
 
 ```
-
 
 # Model {#sec-model}
 
@@ -369,7 +395,7 @@ data <- data.frame(
 # Apply a logistic regression model 
 model <- glm(Recommendations ~ Russia, data = data, family = "binomial")
 
-# Extract the model coefficients
+# Extract  model coefficients
 model_coef <- broom::tidy(model) 
 
 # Develop the odds ratio to get the log odds 
