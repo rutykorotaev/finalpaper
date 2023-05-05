@@ -187,7 +187,7 @@ The below visualizations show the recommendations for the pro-Russian artists El
 
 ### Spotify Recommendations for Eldzhey
 
-In [@fig-eldzhey], we look at the recommendations for the artist Eldzhey, who is one of Russia's most prominent rappers and has been openly supportive of the war in Ukraine. He has been officially banned from entering Ukraine, following a concert he gave in 2018 in the Russian-occupied region of Crimea. 
+In [@fig-eldzhey], we look at the recommendations for the artist Eldzhey, whose real name is Alexey Uzenyuk and is one of Russia's most prominent rappers and has been openly supportive of the war in Ukraine. He has been officially banned from entering Ukraine, following a concert he gave in 2018 in the Russian-occupied region of Crimea. 
 
 ```{r}
 #| echo: false
@@ -223,7 +223,7 @@ ggplot(eldzhey_top10, aes(x = name, y = followers)) +
 
 ### Spotify Recommendations for Max Korzh
 
-The following graphic in [@fig-maxkorzh] shows the related artists for the pro-Russian artist Max Korzh. While Korzh is a Belarusian musician, he sings in Russian and continues to perform widely throughout Russia and has previously been denied entry into Ukraine. However, he  recently released a song that is viewed as anti-war, though not overly supportive of Ukraine. 
+The following graphic in [@fig-maxkorzh] shows the related artists for the pro-Russian artist Maxim (Max) Korzh. While Korzh is a Belarusian musician, he sings in Russian and continues to perform widely throughout Russia and has previously been denied entry into Ukraine. However, he  recently released a song that is viewed as anti-war, though not overly supportive of Ukraine. 
 
 ```{r}
 #| echo: false
@@ -259,7 +259,7 @@ ggplot(max_top10, aes(x = name, y = followers)) +
 
 ### Spotify Recommendations for Basta 
 
-Next, in [@fig-basta], we can see the top artists taht were recommended for the pro-Kremlin artist Basta.
+In [@fig-basta], we can see the top artists that were recommended for the pro-Kremlin rapper Basta, whose real name is Vasiliy Vakulenko but is more commonly known as his stage name "Noggano." He has been a long time supporter for Russian aggression against Ukraine: In 2017, he was banned from entering Ukraine following his performance in Russian-occupied Crimea. In 2023, Ukraine officially imposed sanctions on him. 
 
 ```{r}
 #| echo: false
@@ -272,6 +272,7 @@ basta_related <-
   read_csv(here::here("inputs/data/basta_related_clean.csv"))
 
 # Extract the top ten artists recommended by Spotify
+
 basta_top10 <- basta_related %>% 
   filter(name %in% c("Noggano", "Zanuda", "9 Gramm", "Triagrutrika", "Kaspiyskiy Gruz", "Kravz", "Rem Digga", "Smoky Mo", "Slovetskii", "L'One")) %>% 
   group_by(name) %>% 
@@ -280,9 +281,10 @@ basta_top10 <- basta_related %>%
   head(10)
 
 # Define colours of artists, with blue being anti-RU and red being pro-RU
+
 basta_top10$color <- ifelse(basta_top10$name %in% c("Kravz"), "blue", "red")
 
-# Plot the data
+# Plot the data in Lollipop graph
 ggplot(basta_top10, aes(x = name, y = followers)) + 
   geom_segment(aes(x = name, xend = name, y = 0, yend = followers),
     color = basta_top10$color, size = 1.5) +
@@ -295,7 +297,9 @@ ggplot(basta_top10, aes(x = name, y = followers)) +
 
 ### Spotify Recommendations for IC3PEAK
 
-Next, I will be showing the recommended artists for the anti-Kremlin Russian artists. Below in [@fig-icepeak] is the visualization for the rapper IC3PEAK. 
+Moving onto artists who have been vocal in speaking out against the Kremlin, [@fig-icepeak] shows the recommended artists for IC3PEAK. IC3SPEAK is the name of a Russian electro-music band consisting of Anastasia Kreslina and Nikolay Kostilev. Much of their band's music has openly political undertones related to their criticism of the Kremlin, which has led to their songs being censored or banned within Russia. Because of their open criticism of the Kremlin, they have received a lot of support from like-minded Russian speakers in the West as well as within Russia.
+
+This graph stands out from the other ones because very few of their recommended artists are Russian. As [@fig-icepeak] shows, the green represents artists who are international (which include artists from the United Kingdom, Canada, the United States, and Australia). The two red ones are for artists deemed to be pro-Kremlin.
 
 ```{r}
 #| echo: false
@@ -315,11 +319,11 @@ icepeak_top10 <- icepeak_related %>%
   arrange(desc(n)) %>% 
   head(10)
 
-# Define colors based on artist's name
+# Define colors based on artist's name and affiliation
 icepeak_top10$color <- ifelse(icepeak_top10$name %in% c("Crim3s", "Sidewalks and Skeletons", "Zheani", "Jazmin Bean", "Banshee", "Pastel Ghost", "King Plague", "GRLwood"), "green", "red")
 icepeak_top10$color <- ifelse(icepeak_top10$name %in% c("My", "polnalyubvi"), "red", icepeak_top10$color)
 
-# Plot the data
+# Plot the data in Lollipop graph
 ggplot(icepeak_top10, aes(x = followers, y = name)) +
   geom_segment(aes(x = 0, xend = followers, y = name, yend = name),
   color = icepeak_top10$color, size = 1.5) +
@@ -333,7 +337,7 @@ ggplot(icepeak_top10, aes(x = followers, y = name)) +
 
 ### Spotify Recommendations for Oxxxymiron
 
-Here, in [@fig-oxxxymiron] we have a graph outlining the recommendations for Oxxxymiron, who has been a very outspoken critic of the war and of the Kremlin leadership. Due to his words against the Russian leadership, he has been exiled from Russia and forbidden from performing there. 
+In [@fig-oxxxymiron], we have a graph outlining the recommendations for Oxxxymiron, whose real name is Miron Fyodorov. He is one of the most influential rappers in Russia and has been a very outspoken critic of the war and of the Kremlin leadership. Due to his words against the Russian leadership, he has named a "foreign agent" by the Kremlin, which has led him to seek refuge abroad and he no longer has the ability to perform inside Russia. In 2023, a court in St. Petersburg ordered him to pay a fine of 70,000 rubles for his music having lyrics that openly criticized the Russian invasion of Ukraine. 
 
 ```{r}
 #| echo: false
@@ -370,7 +374,7 @@ ggplot(oxxxymiron_top10, aes(x = followers, y = name)) +
 
 ### Spotify Receommendations for Noize MC
 
-Finally, [@fig-noizemc] shows the graph for Spotify's recommendations for NOIZE MC, who has also been very outspoken in his support for Ukraine and has since been exiled from Russia.
+Finally, [@fig-noizemc] shows the graph for Spotify's recommendations for NOIZE MC, whose real name Ivan Alekseyev. A rapper, singer, and actor, he has long been vocal about his criticism of Russian aggression against Ukraine. In 2014, following the who has also been very outspoken in his support for Ukraine, where he flew the Ukrainian flag and dedicated his performance to "the victims of information warfare." Since then, local authorities have cancelled the majority of his concerts, and as tensions with Ukraine grew, his music was considered blacklisted across the country. Following the 2022 invasion, NOIZE MC has left Russia and continues to participate in Ukraine solidary events and peace alliance groups. 
 
 ```{r}
 #| echo: false
@@ -408,43 +412,52 @@ ggplot(noizemc_top10, aes(x = followers, y = name)) +
 
 # Model {#sec-model}
 
-Below is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artists) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist. A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
+This section looks at the two most popular artists from each political camp, idenitifed in in @fig-popularity Skryptonite, whose real name is Adil Zhalelov, is a Kazakh rapper who has generally remained quiet about the war in Ukraine and continues to perform around the country. FACE, also known as Ivan Dryomin, was the highest in popularity among the anti-Kremlin performers. Due to his criticism of the Kremlin and the war in Ukraine, he has been forced out of Russia after being named a "foreign agent" by the government. 
 
-The `data.frame` functions helped to create a data frame with two main columns: One was for artists who are Pro-Russian, called "Pro_Russia" and the other was "Spotify_Recommendations." The Russia column contains binary values indicating whether the artist is pro-Russia (1) or anti-Russia (0), and the recommendations column contains binary values indicating whether the recommended artists are also pro-Russia (1) or anti-Russia (0). Further, the `glm` function works to apply a logistic regression model to the data, with Spotify_Recommendations being thte outcome variable, and Pro_Russia being the predictor variable. 
+@fig-model is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artist) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist (total of 40). A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
 
-The glm function fits a logistic regression model to the data, with recommendations as the outcome variable and Russia as the predictor variable. The family argument specifies that a binomial distribution should be used, since the outcome variable is binary.
+The `data.frame` function created a data frame with two main columns: One was for artists who are Pro-Russian, called "Pro_Russia" and the other was "Spotify_Recommendations." Both columns contain the binary values that indicate, as mentioned above, whether they are pro-Kremlin (1) or anti-Kremlin (0). The `glm` function then applies a logistic regression model to the data, with Spotify_Recommendations being the outcome variable, and Pro_Russia being the predictor variable. The family argument specifies that a binomial distribution should be used, since the outcome variable is binary.
 
-The coef function extracts the coefficients from the fitted model, which represent the log odds of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).
+The coef function extracts the coefficients from the fitted model, which represent the log odds of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).The exp(coef(model)) code finds the exponentiated coefficients, which represent the odds ratios of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia). 
 
-The exp(coef(model)) code finds the exponentiated coefficients, which represent the odds ratios of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).
-
+### Logistic Regressive Model Reviewing the Predictability of Spotify Recommendations for Russian Artists
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: fig-skriptonite_recs
+#| label: fig-model
 #| fig-cap: Spotify's Recommended Artists for Skriptonite and FACE
+
+library(broom)
 
 # Create a dataframe that includes the recommended variables and the predictor variables 
 data <- data.frame(
-  Russia = c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), 
-  Recommendations = c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0))
+  Pro_Russia = c(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1), 
+  Spotify_Recommendations = c(1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,0,1,1,1,1,1,1,1,1,1,0))
 
 # Apply a logistic regression model 
-model <- glm(Recommendations ~ Russia, data = data, family = "binomial")
+model <- glm(Spotify_Recommendations ~ Pro_Russia, data = data, family = "binomial")
 
 # Extract  model coefficients
 model_coef <- broom::tidy(model) 
 
 # Develop the odds ratio to get the log odds 
-exp(coef(model))
+log_odds <- exp(coef(model))
 
+cat("The odds ratio to get the log odds is:", log_odds)
+
+# Create a graph to show the relationship between the predictor variable and the response variable
+ggplot(data, aes(x = Pro_Russia, y = Spotify_Recommendations)) +
+  geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  xlab("Pro-Russia") +
+  ylab("Spotify Recommendations")
 
 ```
 
 # Results {#sec-results}
 
-There are several key results that can be gleaned from the above visualizations. First, as [@fig-popularity] and [@fig-pop-followers] show, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity among Spotify users. We can see that Skryptonite, the Russian rapper is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who has been incredibly vocal about being against the war in Ukraine, and has since been banned within Russia and forced to leave the country. 
+There are several key results that can be gleaned from the above visualizations. First, as [@fig-popularity] and [@fig-pop-followers] show, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity based on Spotify's rating. We can see that Skryptonite the Russian rapper who is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who has been incredibly vocal about being against the war in Ukraine, and has since been banned within Russia and forced to leave the country. 
 
 Next, [@fig-pop-followers] looks at the correlation between total follower counts and the popularity number assigned by Spotify. What can be seen in this graph is that, as with [@fig_popularity], staunchly pro-Putin rapper Skryptonite has the most amount of followers and the highest popularity score. Noize MC, who is ardently anti-Putin, has both the lowest popularity rating and lowest amount of followers. Interestingly, Oxxxymiron and Eldzhey, who are on very opposite ends of the political spectrum, ranked very close in both popularity and follower count. 
 
@@ -493,6 +506,7 @@ This data could then be tied to larger ideas on the proliferation of Russian dis
 ### Next Steps and Future Potential Projects
 
 Regarding next steps, there are many possible avenues that could be further explored in this topic. Most notably, the temporal aspect of the data would be very valuable in showing how, regardless of an artist's political affiliations, how the war has impacted 
+
 this would offer insights into the power of personal decisions to boycott, and the impact of the international moment 
 
 \newpage
