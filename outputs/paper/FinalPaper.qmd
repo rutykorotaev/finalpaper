@@ -1,6 +1,6 @@
 ---
-title: "Spotify and the Russo-Ukrainian War"
-subtitle: "An Analysis of Russian Artist Popularity Amid the War in Ukraine"
+title: "Pro- and Anti-Kremlin Russian Artists on Spotify"
+subtitle: "An Analysis of How Spotify Audiences Engage with Russian Artists and How its Algorithm Makes Recommendation Choices"
 author: "Ruty Korotaev"
 thanks: "Code and data are available at: https://github.com/rutykorotaev/finalpaper"
 date: "19 April 2023"
@@ -50,6 +50,7 @@ library(tidyverse)
 library(ggplot2)
 library(readr)
 
+suppressWarnings({
 clean_info_dataset <- 
   read_csv(here::here("inputs/data/clean_info_dataset.csv"))
 
@@ -70,7 +71,7 @@ size = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), 0.3, 0
   geom_point(color = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), "blue", "red"), 
 size = ifelse(data$x %in% c("Oxxxymiron", "Noize MC", "FACE", "IC3PEAK"), 2.5, 2.5)) +
   theme_classic()
-
+})
 ```
 
 ```{r}
@@ -201,14 +202,14 @@ eldzhey_related <-
 
 # Extract the top ten artists recommended by Spotify
 eldzhey_top10 <- eldzhey_related %>% 
-  filter(name %in% c("T-Killah", "Zomb", "Geegun", "Lesha Svik", "Jah Khalib", "L'One", "T-Fest", "MiyaGi & Endspiel", "Timati")) %>% 
+  filter(name %in% c("T-Killah", "Zomb", "Geegun", "Lesha Svik", "Jah Khalib", "L'One", "T-Fest", "MiyaGi & Endspiel", "Timati", "Scroodgee","Egor Kreed")) %>% 
   group_by(name) %>% 
   summarise(followers = sum(followers.total), n = n()) %>% 
   arrange(desc(n)) %>% 
   head(10)
 
 # Define artist colours, with blue being anti-RU and red being pro-RU
-eldzhey_top10$color <- ifelse(eldzhey_top10$name %in% c("Lesha Svik", "Jah Khalib"), "blue", "red")
+eldzhey_top10$color <- ifelse(eldzhey_top10$name %in% c("Lesha Svik", "Jah Khalib", "Scroodgee"), "blue", "red")
 
 # Plot the data in Lollipop graph
 ggplot(eldzhey_top10, aes(x = name, y = followers)) + 
@@ -237,7 +238,7 @@ maxkorzh_related <-
 
 # Extract the top ten artists recommended by Spotify
 max_top10 <- maxkorzh_related %>% 
-  filter(name %in% c("LSP", "ATL", "T-Fest", "Skryptonite", "Truwer", "Thomas Mraz", "Mnogoznaal", "FACE", "Markul")) %>% 
+  filter(name %in% c("LSP", "ATL", "T-Fest", "Skryptonite", "Truwer", "Thomas Mraz", "Mnogoznaal", "FACE", "Markul", "Eldzhey")) %>% 
   group_by(name) %>% 
   summarise(followers = sum(followers.total), n = n()) %>% 
   arrange(desc(n)) %>% 
@@ -351,7 +352,7 @@ oxxxymiron_related <-
 
 # Extract the top ten artists recommended by Spotify
 oxxxymiron_top10 <- oxxxymiron_related %>% 
-  filter(name %in% c("ATL", "Husky", "Thomas Mraz", "LSP", "Mnogoznaal", "Krovostok", "43ai", "Luperkal", "Markul", "Timati")) %>% 
+  filter(name %in% c("ATL", "Husky", "Thomas Mraz", "LSP", "Mnogoznaal", "Krovostok", "43ai", "Luperkal", "Markul", "Skryptonite")) %>% 
   group_by(name) %>% 
   summarise(followers = sum(followers.total), n = n()) %>% 
   arrange(desc(n)) %>% 
@@ -412,14 +413,15 @@ ggplot(noizemc_top10, aes(x = followers, y = name)) +
 
 # Model {#sec-model}
 
-This section looks at the two most popular artists from each political camp, idenitifed in in @fig-popularity Skryptonite, whose real name is Adil Zhalelov, is a Kazakh rapper who has generally remained quiet about the war in Ukraine and continues to perform around the country. FACE, also known as Ivan Dryomin, was the highest in popularity among the anti-Kremlin performers. Due to his criticism of the Kremlin and the war in Ukraine, he has been forced out of Russia after being named a "foreign agent" by the government. 
+This section looks at the two most popular artists from each political camp, identified in [@fig-popularity]. From the pro-Kremlin group, Skryptonite, whose real name is Adil Zhalelov, was selected. He is a Kazakh rapper who has generally remained quiet about the war in Ukraine and continues to perform around the country. FACE, also known as Ivan Dryomin, was the highest in popularity among the anti-Kremlin performers. Due to his criticism of the Kremlin and the war in Ukraine, he has been forced out of Russia after being named a "foreign agent" by the government. 
 
-@fig-model is a logistic regressive model that looks at Skryptonite (the most popular pro-Putin artist) and FACE (most popular anti-Kremlin musician), reviewing the top 20 artists that appear as recommendations from Spotify for each artist (total of 40). A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
+@fig-model is a logistic regressive model that looks at Skryptonite and FACE, reviewing the top 20 artists that appear as recommendations from Spotify for each artist (total of 40). A manual analysis was conducted to determine whether a given recommended musician was supportive of the Putin regime or not, with those being deemed pro-Kremlin being assigned a "1" value and those against Putin being assigned "0". 
 
 The `data.frame` function created a data frame with two main columns: One was for artists who are Pro-Russian, called "Pro_Russia" and the other was "Spotify_Recommendations." Both columns contain the binary values that indicate, as mentioned above, whether they are pro-Kremlin (1) or anti-Kremlin (0). The `glm` function then applies a logistic regression model to the data, with Spotify_Recommendations being the outcome variable, and Pro_Russia being the predictor variable. The family argument specifies that a binomial distribution should be used, since the outcome variable is binary.
 
 The coef function extracts the coefficients from the fitted model, which represent the log odds of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia).The exp(coef(model)) code finds the exponentiated coefficients, which represent the odds ratios of being recommended pro-Russia artists given that an artist is pro-Russia (compared to being anti-Russia). 
 
+\newpage
 ### Logistic Regressive Model Reviewing the Predictability of Spotify Recommendations for Russian Artists
 
 ```{r}
@@ -429,6 +431,7 @@ The coef function extracts the coefficients from the fitted model, which represe
 #| fig-cap: Spotify's Recommended Artists for Skriptonite and FACE
 
 library(broom)
+library(ggplot2)
 
 # Create a dataframe that includes the recommended variables and the predictor variables 
 data <- data.frame(
@@ -450,64 +453,89 @@ cat("The odds ratio to get the log odds is:", log_odds)
 ggplot(data, aes(x = Pro_Russia, y = Spotify_Recommendations)) +
   geom_point(size = 3, shape = 21, fill = "white", colour = "black") +
   geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
-  xlab("Pro-Russia") +
-  ylab("Spotify Recommendations")
+  labs(x = "Pro-Russia", y = "Spotify Recommendations")
 
 ```
 
 # Results {#sec-results}
 
-There are several key results that can be gleaned from the above visualizations. First, as [@fig-popularity] and [@fig-pop-followers] show, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have huge differences in popularity based on Spotify's rating. We can see that Skryptonite the Russian rapper who is among the most openly supportive of the Putin regime, ranks as the most popular, though by a very small margin. The least popular artist appears to be Oxxxymiron, who has been incredibly vocal about being against the war in Ukraine, and has since been banned within Russia and forced to leave the country. 
+## Popularity Results
 
-Next, [@fig-pop-followers] looks at the correlation between total follower counts and the popularity number assigned by Spotify. What can be seen in this graph is that, as with [@fig_popularity], staunchly pro-Putin rapper Skryptonite has the most amount of followers and the highest popularity score. Noize MC, who is ardently anti-Putin, has both the lowest popularity rating and lowest amount of followers. Interestingly, Oxxxymiron and Eldzhey, who are on very opposite ends of the political spectrum, ranked very close in both popularity and follower count. 
+There are several key results that can be gleaned from the above visualizations. First, as [@fig-popularity] and [@fig-pop-followers] show, we can see that the pro-Kremlin artists (who are outlined in red) and the anti-Kremlin artists (in blue) do not have significant differences in popularity based on Spotify's rating. We can see in both graphs that Skryptonite, a pro-Russian rapper, ranks as the most popular and has the most amount of followers. Similarly, NOIZE MC had both the lowest following and lowest popularity rating. 
+
+We see these popularity ratings reflected also in [@fig-pop-followers], which looked the correlation between the popularity score and follower values. It shows that follower count can vary greatly among the popularity scores, with Basta, ICEPEAK, and FACE all having similar follower numbers, but very different popularity ratings. FACE, despite having significantly less followers than Skryptonite, was the second-most popular artist, followed closely behind by Max Korzh and IC3PEAK. 
+
+Interestingly, IC3PEAK and Eldzhey are two artists on opposite ends of the political spectrum and are both very open about their views, yet they each have a popularity rating of "60," though Max Korzh has over 700,000 more followers than IC3PEAK. Moreover, three out of the four pro-Russian artists were in the top three of musicians with the most amount of followers, with three of the anti-Kremlin artists have three of the lowest popularity scores.
+
+## Related Artists Results 
+
+### Pro-Kremlin Related Artists
+Among the six visualizations for the Related Artists analysis, the main finding is that among both the pro- and anti-Kremlin artists, the vast majority of the artists recommended by Spotify are ones that have been deemed as pro-Kremlin (i.e. no mentions of the war in Ukraine and they continue to hold concerts within Russia). 
+
+Looking at the pro-Kremlin artists, visualized in [@fig-eldzhey], [@fig-maxkorzh], and [@fig-basta], all had between 1 to 3 anti-Kremlin artists. Eldzhey was the only artist that received a recommendation for a Ukrainian musician, "Scroodgee", though he still sings in Russian. Interestingly, there was very little overlap between the top ten recommended artists for the pro-Kremlin performers, and the artists that did overlap came in very different orders. Out of the three pro-Kremlin artists reviewed in this section, [@fig-eldzhey] had the most anti-Kremlin/pro-Ukrainian artists in the top ten recommended. 
+
+### Anti-Kremlin Related Artists
+
+In reviewing anti-Kremlin artists in [@fig-oxxxymiron], [@fig-noizemc], and [@fig-icepeak], there are slightly different results for these musicians. While NOIZE MC and Oxxxymiron, despite being known for their anti-Kremlin stances and political undertones in their music, received a lot of pro-Kremlin artists in their Spotify recommended section. The two artists had many of the same recommended artists, with the performers LSP, ATL, 43ai, Husky, Krovostok all appearing their top 10 recommended lists, though in different orders. Oxxxymiron had two recommended artists that were anti-Kremlin, while NOIZE MC had three.  
+
+IC3PEAK, seen in [@fig-icepeak], stands out from the rest of the graphs in the section in that he received mostly international artists as recommended, including those from the United Kingdom, Australia, Canada, and the United States. For IC3PEAK, having reviewed the artists in his top ten, the recommendations seem to be more focused on musical genre rather than language. This different in recommendations could also be explained by the fact that IC3PEAK has a lot more music in English than the other artists do. Additionally, the two pro-Kremlin artists that came up on his list do not appear in any of the other lists analyzed in this project. 
 
 # Discussion {#sec-discussion}
-This section will offer a summary and discussion of the main findings that emerged out of this project. 
 
-## First Finding:  {#sec-first-point}
-The first finding, as outlined in [@fig-popularity] is that the political affilation of a certain artist does not seem to impact their popularity among listeners. In using the 
+## Finding 1: Popularity and Politics Not Necessarily Related  {#sec-first-point}
+The first finding is that an artist's political affiliation does not seem to play a significant role in their Spotify popularity rating, as seen in [@fig-popularity]. However, [@fig-pop-followers] demonstrates that pro-Kremlin artists appear to be more popular among Russian-speaking users on Spotify, with Skryptonite being the most popular with the largest amount of followers. As mentioned above, three of the pro-Kremlin artists were among the most popular out of the artist analyzed, and the anti-Kremlin artists had lower ratings and follower counts. 
 
-## Second Finding: {#sec-second-point}
-Next, the second main finding is that, while the model's numbers are not statistically significant, reviewing the actual artists demonstrates that Spotify is encouraging engagement with pro-Russian musicians on the platform through its recommendations. 
+At the same time, given the discrepancy between follower count and popularity rating between some of the artists -- notably the large difference in following between Max Korzh and IC3PEAK yet same popularity rating -- demonstrates that the popularity rating considers other factors aside from just an artist's follower rating. As such, the main finding that can be concluded from this section is that the popularity rating and the follower count is not solely linked to an artist's follower count, and artists with lower followings -- as noted by FACE and IC3PEAK -- have similar popularity ratings to artists who having higher followings. 
 
-## Third Finding: {#sec-third-point}
-Finally, another key finding of this paper is that while content-wise, many of the pro-Russian artists produced media that is similar, they did not have a lot of overlap in terms of Spotify's recommendations. 
+## Finding 2: Mostly Pro-Kremlin Recommendations  {#sec-second-point}
+Another finding from this report relates to the data collected on Spotify's recommendations. In reviewing the six graphs developed in this section, the majority of the charts were mostly in red, both among the pro- and anti-Kremlin artists. This seems to demonstrate that the Spotify algorithm does not differentiate between the political views of artists, despite many of them being very vocal about their perspectives and embedding strong political undertones in their work. 
 
-## Project Limitations and Next Steps {#sec-limitations}
+Moreover, in reviewing the results of the logistic regressive model in @sec-model, which seeks to predict how likely Spotify is to recommend a pro-Russian artist, the results indicate that the Spotify algorithm is much more likely to recommend a pro-Kremlin artist, based on the data collected for the eight musicians analyzed for this report. Had the sample been larger, this could potentially have created a different result. 
 
-### Issue with Spotify API
+Notably, the algorithm is able to differentiate between Russian and Ukrainian artists. Even though IC3PEAK received a lot of recommendations for international artists, none of the artist analyzed in this report had recommendations for Ukrainian artists who performed in Ukrainian. 
 
-There are number of project limitations that should be considered when reviewing this data. First, the Spotify API posed a lot of issues when it came to accessing certain types of data. When initially setting out to do this project, I intended to track the popularity of Russian and Ukrainian artists on Spotify over the course of the first six months following the Russian invasion of Ukraine. However, after many attempts, and developing an overly familiarity with all of the functions within the Spotify R package [@citespotifyr], it became apparent that it is not possible to access either an artist's popularity rating, followers number, or monthly listeners number over the course of a specified period of time without the use of a Third-Party software. Had I been successful in this, it would have been interesting to see how and if the popularity of various artists changed over the course of the war, particularly as people continued to make everyday, conscious choices in boycotting products and artists associated with Russia. 
+## Finding 3: Lack of Recommendation Overlap Among Artists {#sec-third-point}
+Another finding from this relates to the lack of overlap among the artists that are recommended for pro-Kremlin artists. In reviewing the visualizations in @sec-data-related, we can see that among the pro-Kremlin artists, very few of the recommended musicians overlap with each artist and if they do overlap, then they have very different rankings within each group. 
 
-Moreover, there is also a function that allows developers to see the popularity of an artist within certain Spotify markets, but it also was difficult to use and hard to actually gain this data. After a lot of trial and error, this paper was able to get a few key variables about artists, but future work in this could seek to review more deeply the question of Russsian and Ukrainian musical popularity over time and analyzing differences within various key markets. 
+On the other hand, among the anti-Kremlin artists, notably for NOIZE MC and Oxxxymiron, there was a lot of overlap in their top ten artists. another key finding of this paper is that while content-wise, many of the pro-Russian artists produced media that is similar, they did not have a lot of overlap in terms of Spotify's recommendations. 
 
-### Impact of Personal Biases on Research 
+# Project Limitations and Next Steps {#sec-limitations}
 
-In addition, my own personal biases may have played a role in the decision-making process, particularlly as it relates to reviewing the artist's political affiliations. 
+## Issues with Spotify API
 
-As mentioned above, the criteria for deciding whether an artist was supportive of the Putin regime or not was based on a review of several factors. First, I analyzed their respective social media pages (namely Facebook, VKontakte, and Instagram) to see if they have posted any statements online about their stance on Russia's invasion of Ukraine or the Putin regime more broadly. If an artist did not have any statements or other symbols of solidarity to Ukraine, I assumed that they were pro-Kremlin, or at the very best, unwilling to use their online platforms to speak out against the regime. 
+There are number of project limitations that should be considered when reviewing this data. First, the Spotify API posed many of challenges and roadblocks when it came to accessing certain types of data. When initially setting out to do this project, I intended to track the popularity of Russian and Ukrainian artists on Spotify over the course of the first six months following the Russian invasion of Ukraine. However, after many attempts, and developing an over familiarity with all of the functions within the Spotify R package [@citespotifyr], it became apparent that it is not possible to access either an artist's popularity rating, followers number, or monthly listeners number over the course of a specific period of time without the use of a Third-Party software. Had I been successful in this, it would have been interesting to see how and if the popularity of various artists changed over the course of the war, particularly as people continued to make everyday, conscious choices in boycotting products and artists associated with Russia. 
 
-Another factor that I incorporated in this decision-making process was seeing if they had any concerts happening in Russia or if they were performing internationally. This serves as a very telling indicator because most experts say that only artists who are pro-Putin (or at least silently complicit) are still able to perform within Russia without being banned by authorities. 
+Moreover, there is also a function with Spotify R that allows developers to see the popularity of an artist within certain Spotify markets. However, this data was difficult to access, as it kept showing the same popularity variable despite changing country markets. After a lot of trial and error, this paper was able to get a few key variables about artists that gave enough insight into their audience engagement, but future work in this could seek to review more deeply the question of Russian and Ukrainian musical popularity over time and analyzing differences within various key markets. 
 
-This approach could have led to a false assumption on whether someone was supportive of Putin, because as is well-documented, saying openly critical things of the Russian government poses many personal risks to not only musicians and artists, but ordinary people. In the case of these artists, many of whom have very large followings, to speak out against the Kremlin would mean that they would likely be threatened by local authorities and often be forced out of the country. 
+## Impact of Personal Biases on Research 
 
-Moreover, Russia's censorship agency, the Roskomnadzor, actively works to censor and ban music produced by oppositionist figures. Since a vast majority of their listeners tend to be Russian speakers, to speak against the Kremlin may also mean a large loss of revenue for artists. As such, the binary definition of being pro- or anti-Kremlin does not take into account 
+In addition, my own personal biases may have played a role in the decision-making process, particularly as it relates to reviewing the artist's political affiliations. As mentioned above, the criteria for deciding whether or not an artist was supportive of the Putin regime was based on a review of several factors. First, I analyzed their social media pages (namely Facebook, VKontakte, and Instagram) to see if they posted any statements online about their stance on Russia's invasion of Ukraine or the Putin regime more broadly. If an artist did not have any statements or other symbols of solidarity to Ukraine, such as a song, I assumed that they were pro-Kremlin, or at the very best, unwilling to use their online platforms to speak out against the regime. 
 
-While I attempt to cross reference various indicators of political affilation, there is inevitably room for error in this approach. 
+Another factor that I incorporated in this decision-making process was seeing if they had any concerts happening in Russia or if they were performing internationally. This serves as a very telling indicator because for the most part, only artists who are pro-Putin (or at least silently complicit) are still able to perform within Russia without being banned by authorities. While I cross referenced various indicators of political affilation, there is inevitable a lot of room for error and for personal biases to play a role in the process. 
 
-### Spotify Ban in Russia
+## Censorship in Russia and State Repression
 
-Another important point to note is that Spotify has been banned in Russia and the company has stopped all of its operations within the country in March 2022. While it is difficult to know how many people within Russia are using VPNs to circumvent government bans and access Spotify, this paper does not address how and if the ban has impacted Russian artist popularity since the start of the ban (largely due to the aforementioned reasons). 
+This approach to analyzing an artist's political views also does not take into account the real-life implications of anti-Kremlin public stances. As is well-documented, saying openly critical things of the Russian government poses many personal risks to all people living within Russia, especially musicians with large followings. In the case of these artists, to speak out against the Kremlin would mean that they would likely be threatened by local authorities, deemed as "foreign agents" and eventually be forced out of the country.
+ 
+Moreover, Russia's censorship agency, the Roskomnadzor, actively works to censor and ban music produced by oppositionist figures. Since a vast majority of these artists' listeners tend to be Russian speakers, to speak against the Kremlin may also mean a large loss of revenue. The censorship aspect could also play an important role in anti-Kremlin artist popularity, as they might not be as easily available in Russia, which is their largest audience in many cases. As such, the binary definition of being pro- or anti-Kremlin does not take into account the many dangers that come along with activism and being openly supportive of Ukraine. Future work may include a spectrum of anti-Kremlin activity, and classify artists in a more nuanced way. 
 
-Regardless, it is important to note that the ban must have played some kind of role in their popularity, as not all people are able to use VPNs to gain access to Spotify within Russia. Moreover, while this seems to be related to privacy issues, the Spotify API does not allow developers to access demographic data of a certain artist's listeners. This data would have provided invaluable insights, particularly in showing which countries have the most users actively listening to either pro- or anti-Kremlin artists. 
+## Spotify Ban in Russia
 
-This data could then be tied to larger ideas on the proliferation of Russian disinformation around the world, and could offer valuable insights into the impact and permeation of pro-Kremlin narratives, and how they translate into individual's musical preferences and choices. 
+Another important point to note is that Spotify has been banned in Russia and the company has stopped all of its operations within the country in March 2022. While it is difficult to know how many people within Russia are using VPNs to circumvent government bans and access Spotify, this paper does not address how and if the ban has impacted Russian artist popularity since the start of the war. The Spotify API does not allow developers to access demographic data of a certain artist's listeners, so it was not possible to know how many of the artists' listeners were accessing their music through Spotify. 
 
-### Next Steps and Future Potential Projects
+Demographic data from Spotify, even just the countries of users, would have provided invaluable insights about how many Russian citizens were still accessing Spotify after the ban, as well as which countries around the world have the most users actively listening to both pro- and anti-Kremlin artists.
 
-Regarding next steps, there are many possible avenues that could be further explored in this topic. Most notably, the temporal aspect of the data would be very valuable in showing how, regardless of an artist's political affiliations, how the war has impacted 
+## Next Steps 
 
-this would offer insights into the power of personal decisions to boycott, and the impact of the international moment 
+There are many possible avenues that could be further explored in this topic. Most notably, the temporal aspect of the data would be very valuable in showing how, regardless of an artist's political affiliations, the war has impacted an artist's popularity and following over the course of several months, particularly as bans and boycotts from both sides continue to quell the flow of information and music. Another potential project could take a textual analysis of lyrics from songs that are known to have strong political undertones, and compare their popularity rating and what sorts of songs are recommended based on these lyrics. 
+
+In addition, looking at the various markets that engage with Russian artists could offer important insights into the reach of these artists and where they be getting higher followings, which could then be tied more broadly to a given country's vulnerability to pro-Kremlin narratives. 
+
+# Conclusion
+
+In using Spotify's API for R, this project set out to understand how Russian artists were being engaged with by users and their audiences through this platform, and how the Spotify recommendation algorithm was opting to recommended artists despite their politics. The findings can be summarized by two main ideas: One, that politics do not seem to play a huge role in the popularity of either pro- or anti-Kremlin artists, and; two, that the Spotify API was mainly recommending artists that were supportive or complicit with the Putin regime. While this report only looked at eight of the many musicians operating in the Russian-speaking world, these artists are among the most vocal in their political views and well-known within these audiences. 
+
+This research project could be tied to broader topics related to the proliferation of Russian disinformation around the world, offering a look into the impact and permeation of pro-Kremlin narratives, and how they translate into individual's musical preferences and choices. Looking at "soft social media" platforms like Spotify, in stark contrast to Twitter or Facebook, gives us a glimpse into the media consumption habits of Russian-speaking audiences, including how the artists they choose to engage with may impact their own political views and beliefs. It also sheds light into how the global movement to boycott Russian artists, particularly pro-Putin ones, is impacting these artists' online presence.
 
 \newpage
 
